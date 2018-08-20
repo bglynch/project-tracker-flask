@@ -1,14 +1,19 @@
 <html>
-    <head>
-      {% if title %}
-      <title>{{ title }} - Project Tracker</title>
-      {% else %}
-      <title>Project Tracker</title>
-      {% endif %}
-    </head>
-    <body>
-        <div>Project Tracker: <a href="/index">Home</a></div>
-        <hr>
-        {% block content %}{% endblock %}
-    </body>
+
+<head>
+    {% if title %}
+    <title>{{ title }} - Project Tracker</title>
+    {% else %}
+    <title>Project Tracker</title>
+    {% endif %}
+</head>
+
+<body>
+    <div>Project Tracker:
+        <a href="/index">Home</a>
+        <a href="/login">Login</a>
+    </div>
+    <hr> {% block content %}{% endblock %}
+</body>
+
 </html>
