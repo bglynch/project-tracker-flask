@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ user.username }}'s Projects</h1>
+    <h1>{{ current_user.username }}'s Projects</h1>
     {% for project in projects %}
     <div>
         <p><b>{{ project.number}}</b> {{ project.name }} : {{ project.type }}. Value: €{{ project.value}}</p>
