@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, ProjectForm
 from flask_login import current_user, login_user, logout_user, login_required
 from .models import User
 from werkzeug.urls import url_parse
@@ -75,3 +75,12 @@ def user(username):
         {'user': user, 'number': '2018-100', 'name':'Kettle Drive', 'type':'Survey', 'value':200, 'completed':False}
     ]
     return render_template('user.html', user=user, projects=projects)
+    
+@app.route('/user/<username>/add_project')
+@login_required
+def add_project(username):
+    # user = User.query.filter_by(username=username).first_or_404()
+    form = ProjectForm()
+    return render_template('add_project.html', form=form)
+    
+
