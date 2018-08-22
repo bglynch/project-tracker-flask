@@ -42,11 +42,13 @@ def login():
             next_page = url_for('index')
         return redirect(next_page)        
     return render_template('login.html', title='Sign In', form=form)
+  
     
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))    
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -61,3 +63,15 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    projects = [
+        {'user': user, 'number': '2018-282', 'name':'Electric Ave.', 'type':'Loft Conversion', 'value':350, 'completed':False},
+        {'user': user, 'number': '2018-198', 'name':'Bond Road', 'type':'Rear Extension', 'value':400, 'completed':False},
+        {'user': user, 'number': '2018-100', 'name':'Kettle Drive', 'type':'Survey', 'value':200, 'completed':False}
+    ]
+    return render_template('user.html', user=user, projects=projects)
