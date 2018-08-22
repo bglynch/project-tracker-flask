@@ -27,9 +27,10 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Please use a different email address.')
        
 class ProjectForm(FlaskForm):
-    number = StringField('Project Number', validators=[DataRequired(), Length(min=1, max=139)])
-    name = StringField('Project Name', validators=[DataRequired(), Length(min=1, max=139)])
-    value = IntegerField('Project Value', validators=[DataRequired()])
-    timestamp  = DateField('Date Recieved', format='%m/%d/%y')
+    number = StringField('Number', validators=[DataRequired(), Length(min=1, max=139)])
+    name = StringField('Name', validators=[DataRequired(), Length(min=1, max=139)])
+    value = IntegerField('Value', validators=[DataRequired()])
+    timestamp  = DateField('Date Recieved', format='%d/%m/%y')
+    client = StringField('Client', validators=[DataRequired(), Length(min=1, max=139)])
     submit = SubmitField('Create Project')
     

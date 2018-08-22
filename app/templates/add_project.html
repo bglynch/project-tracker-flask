@@ -27,8 +27,11 @@
             {% endfor %} 
         </p>
         <p>
-            {{ form.timestamp.label }}
-            {{ form.timestamp }}
+            {{ form.client.label }}
+            {{ form.client(size=50) }}
+            {% for error in form.client.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %} 
         </p>
         <p>{{ form.submit() }}</p>
     </form>

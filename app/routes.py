@@ -2,7 +2,7 @@ from app import app, db
 from flask import render_template, flash, redirect, url_for, request
 from .forms import LoginForm, RegistrationForm, ProjectForm
 from flask_login import current_user, login_user, logout_user, login_required
-from .models import User
+from .models import User, Project
 from werkzeug.urls import url_parse
 
 @app.route('/')
@@ -76,11 +76,23 @@ def user(username):
     ]
     return render_template('user.html', user=user, projects=projects)
     
-@app.route('/user/<username>/add_project')
+@app.route('/user/<username>/add_project', methods=['GET', 'POST'])
 @login_required
 def add_project(username):
     # user = User.query.filter_by(username=username).first_or_404()
     form = ProjectForm()
+    if form.validate_on_submit():
+        project = Project(
+            number=form.number.data,
+            name = form.name.data,
+            value=form.value.data,
+            client=form.client.data,
+            user=current_user
+            )
+        db.session.add(project)
+        db.session.commit()
+        flash('Congratulations, you created a Project')
+        return redirect(url_for('index'))
     return render_template('add_project.html', form=form)
     
 

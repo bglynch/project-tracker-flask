@@ -23,14 +23,18 @@ class User(UserMixin, db.Model):
 def load_user(id):
     return User.query.get(int(id))
 
+
 class Project(db.Model):
     id          = db.Column(db.Integer, primary_key=True)
     number      = db.Column(db.String(140))
     name        = db.Column(db.String(140))
-    timestamp   = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    timestamp   = db.Column(db.DateTime, index=True)
     value       = db.Column(db.Integer, nullable=False)
     completed   = db.Column(db.Boolean, default=False, nullable=False)
+    client      = db.Column(db.String(140))
     user_id     = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
 
     def __repr__(self):
         return '<Project {}>'.format(self.name)
+
+    
