@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,IntegerField, PasswordField, BooleanField, SubmitField,DateField
+from wtforms import StringField,IntegerField, PasswordField, BooleanField, SubmitField,DateField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length
 from .models import User
 
@@ -33,4 +33,12 @@ class ProjectForm(FlaskForm):
     timestamp  = DateField('Date Recieved', format='%d/%m/%y')
     client = StringField('Client', validators=[DataRequired(), Length(min=1, max=139)])
     submit = SubmitField('Create Project')
+ 
+class TaskForm(FlaskForm):
+    title = StringField('Task', validators=[DataRequired(), Length(min=1, max=139)])
+    description = TextAreaField('About the Task', validators=[Length(min=1, max=139)])
+    genre = StringField('Genre', validators=[DataRequired(), Length(min=1, max=49)])
+    submit = SubmitField('Add Task')
+ 
+ 
     

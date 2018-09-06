@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>New Task</h1>
+    <hr>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}
+            {{ form.title(size=50) }}
+            {% for error in form.title.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %} 
+        </p>
+        <p>
+            {{ form.description.label }}
+            {{ form.description(size=50) }}
+            {% for error in form.description.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %} 
+        </p>
+        <p>
+            {{ form.genre.label }}
+            {{ form.genre(size=50) }}
+            {% for error in form.genre.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %} 
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+
+{% endblock %}

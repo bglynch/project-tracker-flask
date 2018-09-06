@@ -41,8 +41,9 @@ class Project(db.Model):
 class Task(db.Model):
     id           = db.Column(db.Integer, primary_key=True)
     title        = db.Column(db.String(140))
-    description  = db.Column(db.Integer, nullable=False)
-    status       = db.Column(db.Boolean, default=False, nullable=False)
+    description  = db.Column(db.Text)
+    genre        = db.Column(db.String(50))
+    completed    = db.Column(db.Boolean, default=False, nullable=False)
     project_id   = db.Column(db.Integer, db.ForeignKey('project.id'),nullable=False)
 
     def __repr__(self):

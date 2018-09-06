@@ -1,8 +1,8 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request
-from .forms import LoginForm, RegistrationForm, ProjectForm
+from .forms import LoginForm, RegistrationForm, ProjectForm, TaskForm
 from flask_login import current_user, login_user, logout_user, login_required
-from .models import User, Project
+from .models import User, Project, Task
 from werkzeug.urls import url_parse
 
 # ------------------------------------------------------- HOME
@@ -93,3 +93,20 @@ def view_project(username, projectno):
     return render_template('project_page.html')
     
 
+
+@app.route('/<username>/<projectno>/add_task', methods=['GET', 'POST'])
+@login_required
+def add_task(username, projectno):
+    form = TaskForm()
+    if form.validate_on_submit():
+        task = Task(
+            title=form.title.data,
+            description = form.description.data,
+            genre=form.genre.data,
+            project_id=int(projectno)
+            )
+        db.session.add(task)
+        db.session.commit()
+        flash('Congratulations, you created a Task')
+        return redirect(url_for('index'))
+    return render_template('add_task.html', form=form)
