@@ -5,6 +5,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from .models import User, Project
 from werkzeug.urls import url_parse
 
+# ------------------------------------------------------- HOME
 @app.route('/')
 @app.route('/index')
 @login_required
@@ -65,17 +66,23 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
+
+# ------------------------------------------------------- PROJECTS
 @app.route('/user/<username>')
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    projects = [
-        {'user': user, 'number': '2018-282', 'name':'Electric Ave.', 'type':'Loft Conversion', 'value':350, 'completed':False},
-        {'user': user, 'number': '2018-198', 'name':'Bond Road', 'type':'Rear Extension', 'value':400, 'completed':False},
-        {'user': user, 'number': '2018-100', 'name':'Kettle Drive', 'type':'Survey', 'value':200, 'completed':False}
-    ]
-    return render_template('user.html', user=user, projects=projects)
+    jobs = Project.query.filter_by(user_id=user.id)
+    # projects = [
+    #     {'user': user, 'number': '2018-282', 'name':'Electric Ave.', 'type':'Loft Conversion', 'value':350, 'completed':False},
+    #     {'user': user, 'number': '2018-198', 'name':'Bond Road', 'type':'Rear Extension', 'value':400, 'completed':False},
+    #     {'user': user, 'number': '2018-100', 'name':'Kettle Drive', 'type':'Survey', 'value':200, 'completed':False}
+    # ]
+    return render_template('user.html', user=user, jobs=jobs)
+
+
     
+# ------------------------------------------------------- NEW PROJECT
 @app.route('/user/<username>/add_project', methods=['GET', 'POST'])
 @login_required
 def add_project(username):
