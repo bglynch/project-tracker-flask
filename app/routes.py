@@ -84,13 +84,13 @@ def add_project(username):
     return render_template('forms/add_project.html', form=form)
 
 
-# ------------------------------------------------------- ALL PROJECTS
+# ------------------------------------------------------- SINGLE PROJECTS
 @app.route('/<username>/<projectno>')
 @login_required
 def view_project(username, projectno):
-    # user = User.query.filter_by(username=username).first_or_404()
-    # project = Project.query.filter_by(id=projectno)
-    return render_template('project_page.html')
+    tasks = Task.query.filter_by(project_id=projectno)
+    job = Project.query.filter_by(id=projectno).first_or_404()
+    return render_template('project_page.html', tasks=tasks, job=job)
     
 
 
@@ -108,5 +108,5 @@ def add_task(username, projectno):
         db.session.add(task)
         db.session.commit()
         flash('Congratulations, you created a Task')
-        return redirect(url_for('index'))
+        return redirect(url_for('view_project',  username=username, projectno=projectno))
     return render_template('forms/add_task.html', form=form)
