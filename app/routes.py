@@ -10,21 +10,7 @@ from werkzeug.urls import url_parse
 @app.route('/index')
 @login_required
 def index():
-    projects = [
-        {
-            'number': 134,
-            'name': 'Temple Villa Road',
-            'type':'Rear Extension',
-            'value': 400
-        },
-        {
-            'number': 185,
-            'name':   'Electric Ave.',
-            'type':   'Loft Conversion',
-            'value':  350
-        },
-    ]
-    return render_template('index.html', title='Home', projects=projects)
+    return render_template('index.html', title='Home')
     
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -67,23 +53,18 @@ def register():
 
 
 
-# ------------------------------------------------------- PROJECTS
-@app.route('/user/<username>')
+# ------------------------------------------------------- ALL PROJECTS
+@app.route('/<username>')
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     jobs = Project.query.filter_by(user_id=user.id)
-    # projects = [
-    #     {'user': user, 'number': '2018-282', 'name':'Electric Ave.', 'type':'Loft Conversion', 'value':350, 'completed':False},
-    #     {'user': user, 'number': '2018-198', 'name':'Bond Road', 'type':'Rear Extension', 'value':400, 'completed':False},
-    #     {'user': user, 'number': '2018-100', 'name':'Kettle Drive', 'type':'Survey', 'value':200, 'completed':False}
-    # ]
     return render_template('user.html', user=user, jobs=jobs)
 
 
     
 # ------------------------------------------------------- NEW PROJECT
-@app.route('/user/<username>/add_project', methods=['GET', 'POST'])
+@app.route('/<username>/add_project', methods=['GET', 'POST'])
 @login_required
 def add_project(username):
     # user = User.query.filter_by(username=username).first_or_404()
@@ -101,5 +82,14 @@ def add_project(username):
         flash('Congratulations, you created a Project')
         return redirect(url_for('index'))
     return render_template('add_project.html', form=form)
+
+
+# ------------------------------------------------------- ALL PROJECTS
+@app.route('/<username>/<projectno>')
+@login_required
+def view_project(username, projectno):
+    # user = User.query.filter_by(username=username).first_or_404()
+    # project = Project.query.filter_by(id=projectno)
+    return render_template('project_page.html')
     
 
