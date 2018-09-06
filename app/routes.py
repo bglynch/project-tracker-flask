@@ -28,7 +28,7 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)        
-    return render_template('login.html', title='Sign In', form=form)
+    return render_template('forms/login.html', title='Sign In', form=form)
   
     
 @app.route('/logout')
@@ -49,7 +49,7 @@ def register():
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('forms/register.html', title='Register', form=form)
 
 
 
@@ -81,7 +81,7 @@ def add_project(username):
         db.session.commit()
         flash('Congratulations, you created a Project')
         return redirect(url_for('index'))
-    return render_template('add_project.html', form=form)
+    return render_template('forms/add_project.html', form=form)
 
 
 # ------------------------------------------------------- ALL PROJECTS
@@ -109,4 +109,4 @@ def add_task(username, projectno):
         db.session.commit()
         flash('Congratulations, you created a Task')
         return redirect(url_for('index'))
-    return render_template('add_task.html', form=form)
+    return render_template('forms/add_task.html', form=form)
