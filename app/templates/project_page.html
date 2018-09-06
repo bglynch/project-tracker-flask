@@ -9,7 +9,10 @@
       <li>{{ task.genre }} {{ task.title }}</li>
     <p>
     {% endfor %}
-    </ul> 
+    </ul>
+    <div class="fixed-action-btn">
+      
 <a class="btn-floating btn-large waves-effect waves-light red" href="{{ url_for('add_task', username=current_user.username, projectno=job.id) }}"><i class="material-icons">add</i></a>
+    </div>
 
 {% endblock %}

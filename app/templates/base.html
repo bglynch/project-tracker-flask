@@ -12,17 +12,22 @@
 </head>
 
 <body>
-    <div>Project Tracker:
-        <a href="{{ url_for('index') }}">Home</a>
-        {% if current_user.is_anonymous %}
-        <a href="{{ url_for('login') }}">Login</a>
-        {% else %}
-        <a href="{{ url_for('user', username=current_user.username) }}">Projects</a>
-        <a href="{{ url_for('add_project', username=current_user.username) }}">New Project</a>
-        <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
-    </div>
-    <hr> 
+    <div class="container">
+
+      <nav>
+        <div class="nav-wrapper">
+          <a href="{{ url_for('index') }}" class="brand-logo">Project Tracker</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {% if current_user.is_anonymous %}  
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% else %}
+            <li><a href="{{ url_for('user', username=current_user.username) }}">Projects</a></li>
+            <li><a href="{{ url_for('add_project', username=current_user.username) }}">New Project</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>    
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul>
@@ -33,7 +38,7 @@
     {% endif %}
     {% endwith %}    
     {% block content %}{% endblock %}
-
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script type="text/javascript">
