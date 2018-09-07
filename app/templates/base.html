@@ -12,9 +12,9 @@
 </head>
 
 <body>
-    <div class="container">
 
       <nav>
+    <div class="container">
         <div class="nav-wrapper">
           <a href="{{ url_for('index') }}" class="brand-logo">Project Tracker</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -27,7 +27,9 @@
             {% endif %}
           </ul>
         </div>
+        </div>
       </nav>    
+    <div class="container">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul>

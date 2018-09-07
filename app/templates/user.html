@@ -1,15 +1,32 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<h1>{{ user.username|title }}'s Projects</h1>
+<hr>
 
-{% block content %}
-    <h1>{{ user.username|title }}'s Projects</h1>
-    <hr>
-    <ul>
-    {% for p in jobs %}
-      <li><a href="{{ url_for('view_project', username=user.username, projectno=p.id) }}">
+
+
+  {% for p in jobs %}
+<div class="row">
+  <div class="col s12 m12 l12">
+    <a class="waves-effect waves-light btn-large col s11 grey darken-1" href="{{ url_for('view_project', username=user.username, projectno=p.id) }}" style="width:100%;">
+      <span class="col s2">{{ p.number }}</span>
+      <span class="col s6">{{ p.name }}</span>    
+      <span class="col s2">£{{ p.value }}</span>   
+      <span class="col s2"><i class="material-icons">check_box_outline_blank</i></span>   
+    </a>
+  </div>
+</div>
+  
+  
+  
+  {% endfor %}
+  
+<ul>
+  {% for p in jobs %}
+  <li><a href="{{ url_for('view_project', username=user.username, projectno=p.id) }}">
           {{ p.number }} {{ p.name }}
           </a>
-          </li>
-    <p>
+  </li>
+  <p>
     {% endfor %}
-    </ul>    
+</ul>
 {% endblock %}
