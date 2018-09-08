@@ -1,0 +1,10 @@
+#tasks .card-content {
+    padding: 16px 24px;
+}
+#tasks .card-action {
+    padding: 8px 24px;
+}
+
+#tasks  .chip {
+    margin-bottom: 0px;
+}

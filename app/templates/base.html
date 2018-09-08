@@ -3,8 +3,7 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    {% if title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css" /> {% if title %}
     <title>{{ title }} - Project Tracker</title>
     {% else %}
     <title>Project Tracker</title>
@@ -13,33 +12,34 @@
 
 <body>
 
-      <nav>
-    <div class="container">
-        <div class="nav-wrapper">
-          <a href="{{ url_for('index') }}" class="brand-logo">Project Tracker</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            {% if current_user.is_anonymous %}  
-            <li><a href="{{ url_for('login') }}">Login</a></li>
-            {% else %}
-            <li><a href="{{ url_for('user', username=current_user.username) }}">Projects</a></li>
-            <li><a href="{{ url_for('add_project', username=current_user.username) }}">New Project</a></li>
-            <li><a href="{{ url_for('logout') }}">Logout</a></li>
-            {% endif %}
-          </ul>
+    <nav>
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="{{ url_for('index') }}" class="brand-logo">Project Tracker</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    {% if current_user.is_anonymous %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('user', username=current_user.username) }}">Projects</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-        </div>
-      </nav>    
+    </nav>
     <div class="container">
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}    
-    {% block content %}{% endblock %}
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <div class="row">
+                <div class="chip">
+                    {{ message }}
+                    <i class="close material-icons">close</i>
+                </div>
+            </div>
+            {% endfor %}
+        </ul>
+        {% endif %} {% endwith %} {% block content %}{% endblock %}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
@@ -62,4 +62,3 @@
 </body>
 
 </html>
-

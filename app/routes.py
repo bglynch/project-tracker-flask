@@ -80,7 +80,7 @@ def add_project(username):
         db.session.add(project)
         db.session.commit()
         flash('Congratulations, you created a Project')
-        return redirect(url_for('index'))
+        return redirect(url_for('user',  username=username))
     return render_template('forms/add_project.html', form=form)
 
 

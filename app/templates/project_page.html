@@ -1,19 +1,56 @@
-{% extends "base.html" %}
-
-{% block content %}
-<h1>Sample Project Name</h1>
-<h2>{{current_user.username}}</h2>
-<h2>{{job.id}}</h2>
-<hr>
-    <ul>
-    {% for task in tasks %}
-      <li>{{ task.genre }} {{ task.title }}</li>
-    <p>
-    {% endfor %}
+{% extends "base.html" %} {% block content %}
+<div class="row">
+    <ul class="collection col s3">
+        <li class="collection-item">User:</li>
+        <li class="collection-item">Job Id:</li>
+        <li class="collection-item">Job Name:</li>
+        <li class="collection-item">Time:</li>
     </ul>
-    <div class="fixed-action-btn">
-      
-<a class="btn-floating btn-large waves-effect waves-light red" href="{{ url_for('add_task', username=current_user.username, projectno=job.id) }}"><i class="material-icons">add</i></a>
+    <ul class="collection col s3">
+        <li class="collection-item">{{current_user.username}}</li>
+        <li class="collection-item">{{job.id}}</li>
+        <li class="collection-item">{{job.name}}</li>
+        <li class="collection-item">{{job.timestamp}}</li>
+    </ul>
+
+</div>
+<div class="row">
+    <a class="waves-effect waves-light btn-large grey darken-2" href="{{ url_for('add_task', username=current_user.username, projectno=job.id) }}">
+        <i class="material-icons right">add_circle_outline</i>add task
+        </a>
+</div>
+<hr>
+<div id="tasks" class="row">
+    <div class="col s12 green lighten-4">
+        <div class="card">
+            <article class="card-content">
+                <p>Load takedowns for the beams</p>
+            </article>
+            <article class="card-action">
+                <div class="chip">Calculations</div>
+            </article>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <p>Load takedowns for the beams</p>
+            </div>
+            <div class="card-action">
+                <div class="chip">
+                    Calculations
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+<ul>
+    {% for task in tasks %}
+    <li>{{ task.genre }} {{ task.title }}</li>
+    <p>
+        {% endfor %}
+</ul>
+<div class="fixed-action-btn">
+
+</div>
 
 {% endblock %}
