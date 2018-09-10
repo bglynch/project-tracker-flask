@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>New Task Category</h1>
+    <hr>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.category.label }}
+            {{ form.category(size=50) }}
+            {% for error in form.category.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %} 
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+
+{% endblock %}

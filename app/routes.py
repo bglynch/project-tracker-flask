@@ -1,8 +1,8 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request
-from .forms import LoginForm, RegistrationForm, ProjectForm, TaskForm
+from .forms import LoginForm, RegistrationForm, ProjectForm, TaskForm, TaskCatForm
 from flask_login import current_user, login_user, logout_user, login_required
-from .models import User, Project, Task
+from .models import User, Project, Task, Categories
 from werkzeug.urls import url_parse
 
 # ------------------------------------------------------- HOME
@@ -67,7 +67,6 @@ def user(username):
 @app.route('/<username>/add_project', methods=['GET', 'POST'])
 @login_required
 def add_project(username):
-    # user = User.query.filter_by(username=username).first_or_404()
     form = ProjectForm()
     if form.validate_on_submit():
         project = Project(
@@ -84,7 +83,7 @@ def add_project(username):
     return render_template('forms/add_project.html', form=form)
 
 
-# ------------------------------------------------------- SINGLE PROJECTS
+# ------------------------------------------------------- PROJECT PAGE
 @app.route('/<username>/<projectno>')
 @login_required
 def view_project(username, projectno):
@@ -93,7 +92,7 @@ def view_project(username, projectno):
     return render_template('project_page.html', tasks=tasks, job=job)
     
 
-
+# ------------------------------------------------------- ADD PROJECT TASK
 @app.route('/<username>/<projectno>/add_task', methods=['GET', 'POST'])
 @login_required
 def add_task(username, projectno):
@@ -109,4 +108,22 @@ def add_task(username, projectno):
         db.session.commit()
         flash('Congratulations, you created a Task')
         return redirect(url_for('view_project',  username=username, projectno=projectno))
-    return render_template('forms/add_task.html', form=form)
+    return render_template('forms/add_task.html', form=form, projectno=projectno)
+
+    
+# ------------------------------------------------------- NEW TASK CATEGORY
+@app.route('/<username>/<projectno>/add_task_category', methods=['GET', 'POST'])
+@login_required
+def add_task_category(username, projectno):
+    form = TaskCatForm()
+    taskform = TaskForm()
+    if form.validate_on_submit():
+        category = Categories(
+            category=form.category.data,
+            user=current_user
+            )
+        db.session.add(category)
+        db.session.commit()
+        flash('New Task Category Added')
+        return redirect(url_for('add_task',form=taskform,  username=username, projectno=projectno))
+    return render_template('forms/add_task_category.html', form=form,  username=username, projectno=projectno)

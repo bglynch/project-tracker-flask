@@ -15,7 +15,7 @@
 
 </div>
 <div class="row">
-    <a class="waves-effect waves-light btn-large grey darken-2" href="{{ url_for('add_task', username=current_user.username, projectno=job.id) }}">
+    <a class="waves-effect waves-light btn-large grey darken-2" href="{{ url_for('add_task_category', username=current_user.username, projectno=job.id) }}">
         <i class="material-icons right">add_circle_outline</i>add task
         </a>
 </div>
@@ -45,7 +45,7 @@
 
 <ul>
     {% for task in tasks %}
-    <li>{{ task.genre }} {{ task.title }}</li>
+    <li>{{ task.id }} {{ task.genre }} {{ task.title }}</li>
     <p>
         {% endfor %}
 </ul>

@@ -34,6 +34,11 @@ class ProjectForm(FlaskForm):
     client = StringField('Client', validators=[DataRequired(), Length(min=1, max=139)])
     submit = SubmitField('Create Project')
  
+       
+class TaskCatForm(FlaskForm):
+    category = StringField('New Category', validators=[DataRequired(), Length(min=1, max=139)])
+    submit = SubmitField('Add Category')
+ 
 class TaskForm(FlaskForm):
     title = StringField('Task', validators=[DataRequired(), Length(min=1, max=139)])
     description = TextAreaField('About the Task', validators=[Length(min=1, max=139)])
