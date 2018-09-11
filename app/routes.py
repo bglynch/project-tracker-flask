@@ -97,18 +97,23 @@ def view_project(username, projectno):
 @login_required
 def add_task(username, projectno):
     form = TaskForm()
+    user = User.query.filter_by(username=username).first_or_404()
+    categories = Categories.query.filter_by(user_id=user.id)
+    # form.banana.choices = [(ban.id, ban.category)for ban in categories]
+    print('Hello')
     if form.validate_on_submit():
+        print('Hello2')
         task = Task(
             title=form.title.data,
             description = form.description.data,
-            genre=form.genre.data,
-            project_id=int(projectno)
+            project_id=int(projectno),
             )
         db.session.add(task)
         db.session.commit()
         flash('Congratulations, you created a Task')
         return redirect(url_for('view_project',  username=username, projectno=projectno))
-    return render_template('forms/add_task.html', form=form, projectno=projectno)
+    flash('Error')
+    return render_template('forms/add_task.html', form=form, projectno=projectno, categories=categories)
 
     
 # ------------------------------------------------------- NEW TASK CATEGORY
@@ -118,11 +123,11 @@ def add_task_category(username, projectno):
     form = TaskCatForm()
     taskform = TaskForm()
     if form.validate_on_submit():
-        category = Categories(
+        new_category = Categories(
             category=form.category.data,
             user=current_user
             )
-        db.session.add(category)
+        db.session.add(new_category)
         db.session.commit()
         flash('New Task Category Added')
         return redirect(url_for('add_task',form=taskform,  username=username, projectno=projectno))

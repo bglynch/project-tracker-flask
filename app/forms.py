@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField,IntegerField, PasswordField, BooleanField, SubmitField,DateField, TextAreaField
+from wtforms.ext.sqlalchemy import QuerySelectField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length
 from .models import User
 
@@ -42,7 +43,8 @@ class TaskCatForm(FlaskForm):
 class TaskForm(FlaskForm):
     title = StringField('Task', validators=[DataRequired(), Length(min=1, max=139)])
     description = TextAreaField('About the Task', validators=[Length(min=1, max=139)])
-    genre = StringField('Genre', validators=[DataRequired(), Length(min=1, max=49)])
+    # banana = SelectField('Category', choices=[('1','Calculations'), ('2', 'Drawings')], validators=[DataRequired()])
+    banana = QuerySelectField(query_factory=enabled_categories, allow_blank=True)
     submit = SubmitField('Add Task')
  
  

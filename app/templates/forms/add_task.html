@@ -1,48 +1,44 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<h1>New Task</h1>
+<hr>
+<form id="add_task" action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.title.label }} {{ form.title(size=50) }} {% for error in form.title.errors %}
+        <span style="color: red;">[{{ error }}]</span> {% endfor %}
+    </p>
+    <p>
+        {{ form.description.label }} {{ form.description(size=50) }} {% for error in form.description.errors %}
+        <span style="color: red;">[{{ error }}]</span> {% endfor %}
+    </p>
+    <!--<div class="row">-->
+    <!--    <p class="col s9">-->
+    <!--        {{ form.banana.label }} {{ form.banana(size=50) }}  {% for error in form.banana.errors %}-->
 
-{% block content %}
-    <h1>New Task</h1>
-    <hr>
-<div class="row">
-    <ul class="collection col s3">
-        <li class="collection-item">User:</li>
-        <li class="collection-item">Job Id:</li>
+    <!--    <span style="color: red;">[{{ error }}]</span> {% endfor %}-->
+    <!--    </p>-->
+    <!--    <a class="waves-effect waves-light btn-small col s3" href="{{ url_for('add_task_category', username=current_user.username, projectno=projectno) }}">-->
+    <!--        <i class="material-icons left">cloud</i>Add New Category-->
+    <!--    </a>-->
+    <!--</div>-->
+        <div class="row">
 
-    </ul>
-    <ul class="collection col s3">
-        <li class="collection-item">{{current_user.username}}</li>
-        <li class="collection-item">{{projectno}}</li>
-    </ul>
-
-</div>    
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.title.label }}
-            {{ form.title(size=50) }}
-            {% for error in form.title.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %} 
-        </p>
-        <p>
-            {{ form.description.label }}
-            {{ form.description(size=50) }}
-            {% for error in form.description.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %} 
-        </p>
-        <p>
-            {{ form.genre.label }}
-            {{ form.genre(size=50) }}
-            {% for error in form.genre.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %} 
-        </p>
-        <a class="waves-effect waves-light btn-small" href="{{ url_for('add_task_category', username=current_user.username, projectno=projectno) }}">
+        <div class="input-field col s8">
+                <select id="category" name="category">
+                  <option value="" disabled selected>Choose your option</option>
+                  {% for cat in categories %}
+                      <option value="{{ cat.category }}">{{ cat.category }}</option>
+                  {% endfor %}
+                </select>
+            <label>Category Select</label>
+        </div>
+        <a class="waves-effect waves-light btn-small col s4" href="{{ url_for('add_task_category', username=current_user.username, projectno=projectno) }}">
             <i class="material-icons left">cloud</i>Add New Category
         </a>
-        <p>{{ form.submit() }}</p>
-    </form>
+
+    </div>
+    <p>{{ form.submit() }}</p>
+</form>
 
 
 {% endblock %}

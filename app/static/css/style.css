@@ -8,3 +8,7 @@
 #tasks  .chip {
     margin-bottom: 0px;
 }
+
+#add_task a {
+    padding-top: 25px;
+}
