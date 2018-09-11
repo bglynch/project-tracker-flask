@@ -3,18 +3,6 @@
 {% block content %}
     <h1>New Task</h1>
     <hr>
-<div class="row">
-    <ul class="collection col s3">
-        <li class="collection-item">User:</li>
-        <li class="collection-item">Job Id:</li>
-
-    </ul>
-    <ul class="collection col s3">
-        <li class="collection-item">{{current_user.username}}</li>
-        <li class="collection-item">{{projectno}}</li>
-    </ul>
-
-</div>    
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
@@ -38,9 +26,6 @@
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %} 
         </p>
-        <a class="waves-effect waves-light btn-small" href="{{ url_for('add_task_category', username=current_user.username, projectno=projectno) }}">
-            <i class="material-icons left">cloud</i>Add New Category
-        </a>
         <p>{{ form.submit() }}</p>
     </form>
 
