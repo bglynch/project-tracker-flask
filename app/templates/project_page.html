@@ -25,7 +25,10 @@
         {% for task in tasks %}
         <div class="card">
             <article class="card-content">
-                <p class="col s8">{{ task.title }}</p><a class="waves-effect waves-light btn-small">edit</a><a class="waves-effect waves-light btn-small">done</a>
+                <p class="col s9">{{ task.title }}</p>
+                <a class="waves-effect waves-light btn-small">edit</a>
+                <a class="waves-effect waves-light btn-small">done</a>
+                <a class="waves-effect waves-light btn-small" href="{{ url_for('delete_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">del</a>
             </article>
             <article class="card-action">
                 <div class="chip">{{ task.genre }}</div>

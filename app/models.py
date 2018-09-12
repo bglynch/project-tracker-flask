@@ -47,5 +47,5 @@ class Task(db.Model):
     project_id   = db.Column(db.Integer, db.ForeignKey('project.id'),nullable=False)
 
     def __repr__(self):
-        return '<Task {}>'.format(self.name)
+        return '<Task {}>'.format(self.title)
 

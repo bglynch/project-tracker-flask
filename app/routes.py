@@ -110,3 +110,11 @@ def add_task(username, projectno):
         flash('Congratulations, you created a Task')
         return redirect(url_for('view_project',  username=username, projectno=projectno))
     return render_template('forms/add_task.html', form=form)
+    
+
+@app.route('/<username>/<projectno>/delete_task/<task_id>')
+def delete_task(task_id, username, projectno):
+    task = Task.query.filter_by(id=int(task_id)).first_or_404()
+    db.session.delete(task)
+    db.session.commit()
+    return redirect(url_for('view_project',  username=username, projectno=projectno))
