@@ -118,3 +118,11 @@ def delete_task(task_id, username, projectno):
     db.session.delete(task)
     db.session.commit()
     return redirect(url_for('view_project',  username=username, projectno=projectno))
+
+
+@app.route('/<username>/<projectno>/task_complete/<task_id>')
+def complete_task(task_id, username, projectno):
+    task = Task.query.filter_by(id=int(task_id)).first_or_404()
+    task.completed = True
+    db.session.commit()
+    return redirect(url_for('view_project',  username=username, projectno=projectno))
