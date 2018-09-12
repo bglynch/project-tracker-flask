@@ -22,33 +22,44 @@
 <hr>
 <div id="tasks" class="row">
     <div class="col s12 green lighten-4">
+        {% for task in tasks %}
         <div class="card">
             <article class="card-content">
-                <p>Load takedowns for the beams</p>
+                <p>{{ task.title }}</p>
             </article>
             <article class="card-action">
-                <div class="chip">Calculations</div>
+                <div class="chip">{{ task.genre }}</div>
             </article>
         </div>
-        <div class="card">
-            <div class="card-content">
-                <p>Load takedowns for the beams</p>
-            </div>
-            <div class="card-action">
-                <div class="chip">
-                    Calculations
-                </div>
-            </div>
-        </div>
+        {% endfor %}
+        <!--<div class="card">-->
+        <!--    <div class="card-content">-->
+        <!--        <p>Load takedowns for the beams</p>-->
+        <!--    </div>-->
+        <!--    <div class="card-action">-->
+        <!--        <div class="chip">-->
+        <!--            Calculations-->
+        <!--        </div>-->
+        <!--    </div>-->
+        <!--</div>-->
+
     </div>
 </div>
 
-<ul>
-    {% for task in tasks %}
-    <li>{{ task.genre }} {{ task.title }}</li>
-    <p>
-        {% endfor %}
-</ul>
+
+    <!--{% for task in tasks %}-->
+    <!--<div class="card">-->
+    <!--    <article class="card-content">-->
+    <!--        <p>{{ task.title }}</p>-->
+    <!--    </article>-->
+    <!--    <article class="card-action">-->
+    <!--        <div class="chip">{{ task.genre }}</div>-->
+    <!--    </article>-->
+    <!--</div>-->
+    <!--<li>{{ task.genre }} {{ task.title }}</li>-->
+    <!--<p>-->
+    <!--    {% endfor %}-->
+
 <div class="fixed-action-btn">
 
 </div>
