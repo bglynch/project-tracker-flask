@@ -22,8 +22,10 @@
 <hr>
 <div id="tasks" class="row">
     <div class="col s12 green lighten-4">
-        {% for task in tasks %}
-        <div class="card">
+        <h5>To Do</h5>
+        {% for task in tasks %} 
+        {% if task.completed == False %}
+        <div class="card not_completed_tasks">
             <article class="card-content">
                 <p class="col s9">{{ task.title }}{{task.completed}}</p>
                 <a class="waves-effect waves-light btn-small">edit</a>
@@ -34,8 +36,25 @@
                 <div class="chip">{{ task.genre }}</div>
             </article>
         </div>
+        {% endif %} 
         {% endfor %}
+        <h5>Completed</h5>
+        {% for task in tasks %} 
+        {% if task.completed == True %}
 
+        <div class="card completed_tasks">
+            <article class="card-content">
+                <section class="col s9">
+                    <div class="chip">{{ task.genre }}</div>
+                    <div style="display: inline-block;">{{ task.title }}{{task.completed}}</div>
+                </section>
+                <a class="waves-effect waves-light btn-small">edit</a>
+                <a class="waves-effect waves-light btn-small" href="{{ url_for('complete_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">done</a>
+                <a class="waves-effect waves-light btn-small" href="{{ url_for('delete_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">del</a>
+            </article>
+        </div>
+        {% endif %} 
+        {% endfor %}
     </div>
 </div>
 
