@@ -8,3 +8,10 @@
 #tasks  .chip {
     margin-bottom: 0px;
 }
+
+#tasks a {
+    line-height: 20px;
+    height: 20px;
+    font-size: 0.8rem;
+    margin: 0 10px;
+}
