@@ -5,12 +5,14 @@
         <li class="collection-item">Job Id:</li>
         <li class="collection-item">Job Name:</li>
         <li class="collection-item">Time:</li>
+        <li class="collection-item">Project Complete:</li>
     </ul>
     <ul class="collection col s3">
         <li class="collection-item">{{current_user.username}}</li>
         <li class="collection-item">{{job.id}}</li>
         <li class="collection-item">{{job.name}}</li>
         <li class="collection-item">{{job.timestamp}}</li>
+        <li class="collection-item">{{job.completed}}</li>
     </ul>
 
 </div>
@@ -48,6 +50,7 @@
                     <div class="chip">{{ task.genre }}</div>
                     <div class="task-done grey-text">{{ task.title }}{{task.completed}}</div>
                 </section>
+                <a class="waves-effect waves-light btn-small" href="{{ url_for('complete_not_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">Not Complete</a>
             </article>
         </div>
         {% endif %} 

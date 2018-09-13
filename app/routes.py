@@ -126,3 +126,10 @@ def complete_task(task_id, username, projectno):
     task.completed = True
     db.session.commit()
     return redirect(url_for('view_project',  username=username, projectno=projectno))
+
+@app.route('/<username>/<projectno>/task_not_complete/<task_id>')
+def complete_not_task(task_id, username, projectno):
+    task = Task.query.filter_by(id=int(task_id)).first_or_404()
+    task.completed = False
+    db.session.commit()
+    return redirect(url_for('view_project',  username=username, projectno=projectno))
