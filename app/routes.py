@@ -1,5 +1,5 @@
 from app import app, db
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, jsonify
 from .forms import LoginForm, RegistrationForm, ProjectForm, TaskForm
 from flask_login import current_user, login_user, logout_user, login_required
 from .models import User, Project, Task
@@ -147,3 +147,18 @@ def complete_not_task(task_id, username, projectno):
     task.completed = False
     db.session.commit()
     return redirect(url_for('view_project',  username=username, projectno=projectno))
+
+@app.route('/<username>/data')
+@login_required
+def user_data(username):
+    user_projects=Project.query.join(User, (User.id==Project.user_id)).filter(User.username == username)
+    data = [
+        {
+            'user':job.user.username, 
+            'project':job.name,
+            'project_value':job.value,
+            'project_completed':job.completed,
+            'project_recieved':job.timestamp,
+        } 
+        for job in user_projects] 
+    return jsonify(data)
