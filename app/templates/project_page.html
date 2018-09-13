@@ -26,7 +26,7 @@
         {% for task in tasks %} 
         {% if task.completed == False %}
         <div class="card not_completed_tasks">
-            <article class="card-content">
+            <article class="card-content overflow-auto">
                 <p class="col s9">{{ task.title }}{{task.completed}}</p>
                 <a class="waves-effect waves-light btn-small">edit</a>
                 <a class="waves-effect waves-light btn-small" href="{{ url_for('complete_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">done</a>
@@ -43,14 +43,11 @@
         {% if task.completed == True %}
 
         <div class="card completed_tasks">
-            <article class="card-content">
+            <article class="card-content overflow-auto">
                 <section class="col s9">
                     <div class="chip">{{ task.genre }}</div>
-                    <div style="display: inline-block;">{{ task.title }}{{task.completed}}</div>
+                    <div class="task-done grey-text">{{ task.title }}{{task.completed}}</div>
                 </section>
-                <a class="waves-effect waves-light btn-small">edit</a>
-                <a class="waves-effect waves-light btn-small" href="{{ url_for('complete_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">done</a>
-                <a class="waves-effect waves-light btn-small" href="{{ url_for('delete_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">del</a>
             </article>
         </div>
         {% endif %} 
