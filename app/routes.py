@@ -105,6 +105,10 @@ def add_task(username, projectno):
             genre=form.genre.data,
             project_id=int(projectno)
             )
+        are_all_tasks_complete = len({task.completed for task in Task.query.filter_by(project_id=int(projectno))})
+        if are_all_tasks_complete == 1:
+            project = Project.query.filter_by(id=int(projectno)).first_or_404()
+            project.completed = False
         db.session.add(task)
         db.session.commit()
         flash('Congratulations, you created a Task')
@@ -125,10 +129,20 @@ def complete_task(task_id, username, projectno):
     task = Task.query.filter_by(id=int(task_id)).first_or_404()
     task.completed = True
     db.session.commit()
+    # Code to check if all project tasks are complete
+    are_all_tasks_complete = len({task.completed for task in Task.query.filter_by(project_id=int(projectno))})
+    if are_all_tasks_complete == 1:
+        project = Project.query.filter_by(id=int(projectno)).first_or_404()
+        project.completed = True
+        db.session.commit()
     return redirect(url_for('view_project',  username=username, projectno=projectno))
 
 @app.route('/<username>/<projectno>/task_not_complete/<task_id>')
 def complete_not_task(task_id, username, projectno):
+    are_all_tasks_complete = len({task.completed for task in Task.query.filter_by(project_id=int(projectno))})
+    if are_all_tasks_complete == 1:
+        project = Project.query.filter_by(id=int(projectno)).first_or_404()
+        project.completed = False
     task = Task.query.filter_by(id=int(task_id)).first_or_404()
     task.completed = False
     db.session.commit()
