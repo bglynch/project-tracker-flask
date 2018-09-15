@@ -158,20 +158,14 @@ def user_data(username):
     data = [
         {
             'user':job.user.username, 
-            'project':job.name,
+            'project_title':job.name,
             'project_id':job.id,
             'project_value':job.value,
-            'project_completed':job.completed,
+            'project_completed':sum([job.completed]),
             'project_recieved':job.timestamp,
+            'project_tasks_all':len(job.tasks.all()),
+            'project_tasks_completed':sum([task.completed for task in job.tasks.all()])
         } 
         for job in user_projects] 
-    pro = Project.query.options(lazyload('tasks')).filter_by(user_id=current_user.id)
-    tasks = [{'id':p.id, 'all_task':len(p.tasks[0:])} for p in pro] 
-    for task in range(len(tasks)):
-        print(tasks[task])
-        data[task].update(tasks[task])
     
-    
-        
     return jsonify(data)
-    
