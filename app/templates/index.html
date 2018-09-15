@@ -9,3 +9,18 @@
     </div>
     {% endfor %}
 {% endblock %}
+
+
+{% block headscripts %}
+     <script src="https://d3js.org/d3.v4.min.js"></script>
+    {{ super() }}
+{% endblock %}
+
+{% block basescripts %}
+    <script type="text/javascript">
+        d3.json("http://project-tracker-flask-bglynch.c9users.io:8080/brian/data", function(data) {
+            console.log(data);
+        });
+    </script>
+    {{ super() }}
+{% endblock %}

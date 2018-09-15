@@ -3,11 +3,14 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css" /> {% if title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css" /> 
+    {% block headscripts %}{% endblock %}
+    {% if title %}
     <title>{{ title }} - Project Tracker</title>
     {% else %}
     <title>Project Tracker</title>
     {% endif %}
+   
 </head>
 
 <body>
@@ -20,6 +23,7 @@
                     {% if current_user.is_anonymous %}
                     <li><a href="{{ url_for('login') }}">Login</a></li>
                     {% else %}
+                    <li><a href="{{ url_for('index') }}">Dashboard</a></li>
                     <li><a href="{{ url_for('user', username=current_user.username) }}">Projects</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     {% endif %}
@@ -41,24 +45,10 @@
         </ul>
         {% endif %} {% endwith %} {% block content %}{% endblock %}
     </div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.collapsible').collapsible();
-            $('select').material_select();
-        });
-
-        $('.datepicker').pickadate({
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 15, // Creates a dropdown of 15 years to control year,
-            today: 'Today',
-            clear: 'Clear',
-            close: 'Ok',
-            closeOnSelect: false // Close upon selecting a date,
-        });
-    </script>
-
+    {% block basescripts %}{% endblock %}
 </body>
 
 </html>

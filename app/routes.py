@@ -4,6 +4,7 @@ from .forms import LoginForm, RegistrationForm, ProjectForm, TaskForm
 from flask_login import current_user, login_user, logout_user, login_required
 from .models import User, Project, Task
 from werkzeug.urls import url_parse
+from sqlalchemy.orm import lazyload
 
 # ------------------------------------------------------- HOME
 @app.route('/')
@@ -152,13 +153,25 @@ def complete_not_task(task_id, username, projectno):
 @login_required
 def user_data(username):
     user_projects=Project.query.join(User, (User.id==Project.user_id)).filter(User.username == username)
+    # project_tasks = Project.query.options(lazyload('tasks')).filter_by(User.username == username)[0].tasks.all()
+    
     data = [
         {
             'user':job.user.username, 
             'project':job.name,
+            'project_id':job.id,
             'project_value':job.value,
             'project_completed':job.completed,
             'project_recieved':job.timestamp,
         } 
         for job in user_projects] 
+    pro = Project.query.options(lazyload('tasks')).filter_by(user_id=current_user.id)
+    tasks = [{'id':p.id, 'all_task':len(p.tasks[0:])} for p in pro] 
+    for task in range(len(tasks)):
+        print(tasks[task])
+        data[task].update(tasks[task])
+    
+    
+        
     return jsonify(data)
+    
