@@ -161,6 +161,7 @@ def user_data(username):
             'project_title':job.name,
             'project_id':job.id,
             'project_value':job.value,
+            'project_client':job.client,
             'project_completed':sum([job.completed]),
             'project_recieved':job.timestamp,
             'project_tasks_all':len(job.tasks.all()),
