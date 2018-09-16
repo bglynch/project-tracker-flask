@@ -28,7 +28,7 @@ class Project(db.Model):
     id          = db.Column(db.Integer, primary_key=True)
     number      = db.Column(db.String(140))
     name        = db.Column(db.String(140))
-    timestamp   = db.Column(db.DateTime, index=True)
+    timestamp   = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     value       = db.Column(db.Integer, nullable=False)
     completed   = db.Column(db.Boolean, default=False, nullable=False)
     client      = db.Column(db.String(140))
@@ -43,6 +43,7 @@ class Task(db.Model):
     title        = db.Column(db.String(140))
     description  = db.Column(db.Text)
     genre        = db.Column(db.String(50))
+    duration     = db.Column(db.Integer)
     completed    = db.Column(db.Boolean, default=False, nullable=False)
     project_id   = db.Column(db.Integer, db.ForeignKey('project.id'),nullable=False)
 
