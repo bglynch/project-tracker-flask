@@ -1,61 +1,76 @@
 {% extends "base.html" %} {% block content %}
 <div class="row">
-    <ul class="collection col s3">
-        <li class="collection-item">User:</li>
-        <li class="collection-item">Job Id:</li>
-        <li class="collection-item">Job Name:</li>
-        <li class="collection-item">Time:</li>
-        <li class="collection-item">Project Complete:</li>
-    </ul>
-    <ul class="collection col s3">
-        <li class="collection-item">{{current_user.username}}</li>
-        <li class="collection-item">{{job.id}}</li>
-        <li class="collection-item">{{job.name}}</li>
-        <li class="collection-item">{{job.timestamp}}</li>
-        <li class="collection-item">{{job.completed}}</li>
-    </ul>
-
+   <ul class="collection col s3">
+      <li class="collection-item">User:</li>
+      <li class="collection-item">Job Id:</li>
+      <li class="collection-item">Job Name:</li>
+      <li class="collection-item">Time:</li>
+      <li class="collection-item">Project Complete:</li>
+   </ul>
+   <ul class="collection col s6">
+      <li class="collection-item">{{current_user.username}}</li>
+      <li class="collection-item">{{job.id}}</li>
+      <li class="collection-item">{{job.name}}</li>
+      <li class="collection-item">{{job.timestamp}}</li>
+      <li class="collection-item">{{job.completed}}</li>
+   </ul>
 </div>
+
 <div class="row">
-    <a class="waves-effect waves-light btn-large grey darken-2" href="{{ url_for('add_task', username=current_user.username, projectno=job.id) }}">
+   <a class="waves-effect waves-light btn-large grey darken-2" href="{{ url_for('add_task', username=current_user.username, projectno=job.id) }}">
         <i class="material-icons right">add_circle_outline</i>add task
-        </a>
+    </a>
 </div>
-<hr>
-<div id="tasks" class="row">
-    <div class="col s12 green lighten-4">
-        <h5>To Do</h5>
-        {% for task in tasks %} 
-        {% if task.completed == False %}
-        <div class="card not_completed_tasks">
-            <article class="card-content overflow-auto">
-                <p class="col s9">{{ task.title }}{{task.completed}}</p>
-                <a class="waves-effect waves-light btn-small">edit</a>
-                <a class="waves-effect waves-light btn-small" href="{{ url_for('complete_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">done</a>
-                <a class="waves-effect waves-light btn-small" href="{{ url_for('delete_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">del</a>
-            </article>
-            <article class="card-action">
-                <div class="chip">{{ task.genre }}</div>
-            </article>
-        </div>
-        {% endif %} 
-        {% endfor %}
-        <h5>Completed</h5>
-        {% for task in tasks %} 
-        {% if task.completed == True %}
 
-        <div class="card completed_tasks">
-            <article class="card-content overflow-auto">
-                <section class="col s9">
-                    <div class="chip">{{ task.genre }}</div>
-                    <div class="task-done grey-text">{{ task.title }}{{task.completed}}</div>
-                </section>
-                <a class="waves-effect waves-light btn-small" href="{{ url_for('complete_not_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">Not Complete</a>
-            </article>
-        </div>
-        {% endif %} 
-        {% endfor %}
-    </div>
+<hr>
+
+<div id="tasks" class="row">
+   <div class="col s12 green lighten-4">
+
+      <h5>To Do</h5>
+      {% for task in tasks %} {% if task.completed == False %}
+      <div class="card not_completed_tasks">
+         <article class="card-content overflow-auto">
+            <p class="col s8">{{ task.title }}</p>
+
+            
+    <form id="task-completed-form" class="col s4" method="POST" action="{{ url_for('complete_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">
+        {{ form.hidden_tag() }}
+            <div class="input-field inline">
+            <i class="material-icons prefix">access_time</i>
+            {{ form.duration.label }}
+            {{ form.duration }}
+            </div>
+            {% for error in form.duration.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %} 
+        {{ form.submit() }}
+    </form>            
+
+         </article>
+         <article class="card-action overflow-auto">
+            <div class="col s8"><div class="chip">{{ task.genre }}</div></div>
+            <div class="col s4">
+            <a class="waves-effect waves-light btn-small">edit</a>
+            <a class="waves-effect waves-light btn-small" href="{{ url_for('delete_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">del</a>
+            </div>
+         </article>
+      </div>
+      {% endif %} {% endfor %}
+
+      <h5>Completed</h5>
+      {% for task in tasks %} {% if task.completed == True %}
+      <div class="card completed_tasks">
+         <article class="card-content overflow-auto">
+            <section class="col s9">
+               <div class="chip">{{ task.genre }}</div>
+               <div class="task-done grey-text">{{ task.title }}{{task.completed}}</div>
+            </section>
+            <a class="waves-effect waves-light btn-small" href="{{ url_for('complete_not_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">Not Complete</a>
+         </article>
+      </div>
+      {% endif %} {% endfor %}
+   </div>
 </div>
 
 
@@ -63,4 +78,15 @@
 
 </div>
 
+
 {% endblock %}
+
+{% block basescripts %}
+<script>
+/**/
+function formInputToNumber() {
+    document.getElementById("duration").type = "number";
+}
+window.onload = formInputToNumber;
+// </script>
+{{ super() }} {% endblock %}

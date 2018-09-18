@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField,IntegerField, PasswordField, BooleanField, SubmitField,DateField, TextAreaField
-from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length
+from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length, NumberRange
 from .models import User
 
 class LoginForm(FlaskForm):
@@ -40,5 +40,7 @@ class TaskForm(FlaskForm):
     genre = StringField('Genre', validators=[DataRequired(), Length(min=1, max=49)])
     submit = SubmitField('Add Task')
  
- 
+class TaskCompleteForm(FlaskForm):
+    duration = IntegerField('Task Time', validators=[DataRequired(), NumberRange(min=1, max=100)])
+    submit = SubmitField('Done')
     

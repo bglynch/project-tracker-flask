@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request, jsonify
-from .forms import LoginForm, RegistrationForm, ProjectForm, TaskForm
+from .forms import LoginForm, RegistrationForm, ProjectForm, TaskForm, TaskCompleteForm
 from flask_login import current_user, login_user, logout_user, login_required
 from .models import User, Project, Task
 from werkzeug.urls import url_parse
@@ -89,11 +89,11 @@ def add_project(username):
 @app.route('/<username>/<projectno>')
 @login_required
 def view_project(username, projectno):
+    form = TaskCompleteForm()
     tasks = Task.query.filter_by(project_id=projectno)
     job = Project.query.filter_by(id=projectno).first_or_404()
-    return render_template('project_page.html', tasks=tasks, job=job)
+    return render_template('project_page.html', tasks=tasks, job=job, form=form)
     
-
 
 @app.route('/<username>/<projectno>/add_task', methods=['GET', 'POST'])
 @login_required
@@ -125,12 +125,17 @@ def delete_task(task_id, username, projectno):
     return redirect(url_for('view_project',  username=username, projectno=projectno))
 
 
-@app.route('/<username>/<projectno>/task_complete/<task_id>')
+@app.route('/<username>/<projectno>/task_complete/<task_id>', methods=['GET', 'POST'])
 def complete_task(task_id, username, projectno):
+    make =  request.form.get('minutes')
+    print(make)
+    
+    # Complete Task
     task = Task.query.filter_by(id=int(task_id)).first_or_404()
     task.completed = True
     db.session.commit()
-    # Code to check if all project tasks are complete
+    
+    # Complete project if all task are complete
     are_all_tasks_complete = len({task.completed for task in Task.query.filter_by(project_id=int(projectno))})
     if are_all_tasks_complete == 1:
         project = Project.query.filter_by(id=int(projectno)).first_or_404()
@@ -148,6 +153,7 @@ def complete_not_task(task_id, username, projectno):
     task.completed = False
     db.session.commit()
     return redirect(url_for('view_project',  username=username, projectno=projectno))
+
 
 @app.route('/<username>/data')
 @login_required
@@ -170,3 +176,4 @@ def user_data(username):
         for job in user_projects] 
     
     return jsonify(data)
+    

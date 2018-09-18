@@ -24,3 +24,38 @@
     display: inline-block;
     text-decoration: line-through;
 }
+
+#task-completed-form{
+    margin-bottom: 0px;
+}
+#task-completed-form .input-field.inline {
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+#task-completed-form .input-field .prefix {
+    top:0rem;
+    font-size: 1.75rem;
+}
+#task-completed-form label {
+    height: 20px;
+    line-height: 20px;
+    margin-left: 25px;
+    width: 70px;
+    top: -12px;
+}
+#task-completed-form .input-field>label:not(.label-icon).active {
+    transform: translateY(-2px) scale(0.8);
+}
+#duration{
+    margin-bottom: 0px;
+    line-height: 20px;
+    height: 20px;
+    margin-left: 25px;
+    width: 70px;
+}
+#task-completed-form #submit {
+        line-height: 20px;
+    height: 20px;
+    font-size: 0.8rem;
+    margin: 0 10px;
+}
