@@ -6,6 +6,7 @@
       <li class="collection-item">Job Name:</li>
       <li class="collection-item">Time:</li>
       <li class="collection-item">Project Complete:</li>
+      <li class="collection-item">All Tasks:</li>
    </ul>
    <ul class="collection col s6">
       <li class="collection-item">{{current_user.username}}</li>
@@ -13,6 +14,7 @@
       <li class="collection-item">{{job.name}}</li>
       <li class="collection-item">{{job.timestamp}}</li>
       <li class="collection-item">{{job.completed}}</li>
+      <li class="collection-item">{{tasks[0:]|length}}</li>
    </ul>
 </div>
 
@@ -39,7 +41,8 @@
             <div class="input-field inline">
             <i class="material-icons prefix">access_time</i>
             {{ form.duration.label }}
-            {{ form.duration(class_="task-item", id=task.id, autocomplete="off") }}
+            {{ form.duration(class_="task-item", id=task.id, autocomplete="off", onkeyup="minsToHours(noOfForms)") }}
+            <span class="min-to-hr"></span>
             </div>
             {% for error in form.duration.errors %}
             <span style="color: red;">[{{ error }}]</span>
@@ -90,5 +93,25 @@ function formInputToNumber() {
     }
 }
 window.onload = formInputToNumber;
-// </script>
+</script>
+
+<script>
+let noOfForms = document.getElementsByTagName("form").length;
+
+function minsToHours(noOfForms) {
+   for(var i = 0; i <= noOfForms; i++){
+      let mins = document.getElementsByClassName("task-item");
+      console.log(mins);
+      console.log(mins[i]);
+      console.log(mins[i].value);
+      console.log(mins[i].valueAsNumber);
+      
+      var hours = Math.floor(mins[i].value/60);
+      let minutes = mins[i].value%60;
+      let durationConverted = hours+"hrs "+minutes+"mins";
+      document.getElementsByClassName("min-to-hr")[i].innerHTML = durationConverted;
+      console.log(hours+"hrs "+minutes+"mins");
+    }
+}
+</script>
 {{ super() }} {% endblock %}

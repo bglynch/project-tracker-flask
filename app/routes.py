@@ -92,6 +92,7 @@ def view_project(username, projectno):
     form = TaskCompleteForm()
     tasks = Task.query.filter_by(project_id=projectno)
     job = Project.query.filter_by(id=projectno).first_or_404()
+    print(len(tasks[0:]))
     return render_template('project_page.html', tasks=tasks, job=job, form=form)
     
 
