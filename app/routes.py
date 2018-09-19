@@ -127,20 +127,21 @@ def delete_task(task_id, username, projectno):
 
 @app.route('/<username>/<projectno>/task_complete/<task_id>', methods=['GET', 'POST'])
 def complete_task(task_id, username, projectno):
-    make =  request.form.get('minutes')
-    print(make)
-    
-    # Complete Task
-    task = Task.query.filter_by(id=int(task_id)).first_or_404()
-    task.completed = True
-    db.session.commit()
-    
-    # Complete project if all task are complete
-    are_all_tasks_complete = len({task.completed for task in Task.query.filter_by(project_id=int(projectno))})
-    if are_all_tasks_complete == 1:
-        project = Project.query.filter_by(id=int(projectno)).first_or_404()
-        project.completed = True
+    form = TaskCompleteForm()
+    if form.validate_on_submit():
+        
+        # Complete Task
+        task = Task.query.filter_by(id=int(task_id)).first_or_404()
+        task.duration = form.duration.data
+        task.completed = True
         db.session.commit()
+        
+        # Complete project if all task are complete
+        are_all_tasks_complete = len({task.completed for task in Task.query.filter_by(project_id=int(projectno))})
+        if are_all_tasks_complete == 1:
+            project = Project.query.filter_by(id=int(projectno)).first_or_404()
+            project.completed = True
+            db.session.commit()
     return redirect(url_for('view_project',  username=username, projectno=projectno))
 
 @app.route('/<username>/<projectno>/task_not_complete/<task_id>')

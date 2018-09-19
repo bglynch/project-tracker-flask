@@ -39,7 +39,7 @@
             <div class="input-field inline">
             <i class="material-icons prefix">access_time</i>
             {{ form.duration.label }}
-            {{ form.duration }}
+            {{ form.duration(style="width: 200px;", class_="bar", id=task.id) }}
             </div>
             {% for error in form.duration.errors %}
             <span style="color: red;">[{{ error }}]</span>
@@ -64,7 +64,7 @@
          <article class="card-content overflow-auto">
             <section class="col s9">
                <div class="chip">{{ task.genre }}</div>
-               <div class="task-done grey-text">{{ task.title }}{{task.completed}}</div>
+               <div class="task-done grey-text">{{ task.title }} {{task.completed}} {{task.duration}}</div>
             </section>
             <a class="waves-effect waves-light btn-small" href="{{ url_for('complete_not_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">Not Complete</a>
          </article>
