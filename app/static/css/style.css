@@ -35,23 +35,26 @@
 #task-completed-form .input-field .prefix {
     top:0rem;
     font-size: 1.75rem;
+    width: 1.75rem;
 }
 #task-completed-form label {
-    height: 20px;
+    height: 1px;
     line-height: 20px;
     margin-left: 25px;
-    width: 70px;
-    top: -12px;
+    width: 100px;
+    top: -25px;
+    font-size: 0.9rem;
 }
 #task-completed-form .input-field>label:not(.label-icon).active {
-    transform: translateY(-2px) scale(0.8);
+    transform: translateY(8px) scale(0.8);
 }
-#duration{
+#task-completed-form .task-item{
     margin-bottom: 0px;
     line-height: 20px;
     height: 20px;
     margin-left: 25px;
     width: 70px;
+    
 }
 #task-completed-form #submit {
         line-height: 20px;

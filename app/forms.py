@@ -41,6 +41,6 @@ class TaskForm(FlaskForm):
     submit = SubmitField('Add Task')
  
 class TaskCompleteForm(FlaskForm):
-    duration = IntegerField('Task Time', validators=[DataRequired(), NumberRange(min=1, max=100)])
+    duration = IntegerField('Task Time', validators=[DataRequired(), NumberRange(min=1, max=10000)])
     submit = SubmitField('Done')
     
