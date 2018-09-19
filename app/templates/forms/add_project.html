@@ -2,38 +2,39 @@
 
 {% block content %}
     <h1>New Project</h1>
-    <hr>
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
             {{ form.number.label }}
-            {{ form.number(size=50) }}
+            {{ form.number(autocomplete="off") }}
             {% for error in form.number.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %} 
         </p>
         <p>
             {{ form.name.label }}
-            {{ form.name(size=50) }}
+            {{ form.name(autocomplete="off") }}
             {% for error in form.name.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %} 
         </p>
         <p>
             {{ form.value.label }}
-            {{ form.value(size=50) }}
+            {{ form.value(autocomplete="off", type="number") }}
             {% for error in form.value.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %} 
         </p>
         <p>
             {{ form.client.label }}
-            {{ form.client(size=50) }}
+            {{ form.client(autocomplete="off") }}
             {% for error in form.client.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %} 
         </p>
-        <p>{{ form.submit() }}</p>
+        <button class="btn waves-effect waves-light float-right" type="submit" name="action">Create Project
+            <i class="material-icons right">send</i>
+        </button>
     </form>
 
 
