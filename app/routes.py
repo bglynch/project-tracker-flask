@@ -68,7 +68,6 @@ def user(username):
 @app.route('/<username>/add_project', methods=['GET', 'POST'])
 @login_required
 def add_project(username):
-    # user = User.query.filter_by(username=username).first_or_404()
     form = ProjectForm()
     if form.validate_on_submit():
         project = Project(
@@ -112,12 +111,15 @@ def add_task(username, projectno):
         if are_all_tasks_complete == 1:
             project = Project.query.filter_by(id=int(projectno)).first_or_404()
             project.completed = False
-        
         db.session.add(task)
         db.session.commit()
         flash('Congratulations, you created a Task')
         return redirect(url_for('view_project',  username=username, projectno=projectno))
-    return render_template('forms/add_task.html', form=form, genres=['Calculations', 'Design', 'Drawing', 'Drawings'])
+        
+    user = User.query.filter(User.username == username)[0]
+    list_of_genres = [project.tasks.all() for project in Project.query.join(Task, (Task.project_id==Project.id)).all() if project.user_id==user.id]
+    genres = sorted({item.genre for sublist in list_of_genres for item in sublist}) 
+    return render_template('forms/add_task.html', form=form, genres=genres)
     
 
 @app.route('/<username>/<projectno>/delete_task/<task_id>')
