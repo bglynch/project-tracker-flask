@@ -41,7 +41,7 @@
             <div class="input-field inline">
             <i class="material-icons prefix">access_time</i>
             {{ form.duration.label }}
-            {{ form.duration(class_="task-item", id=task.id, autocomplete="off", onkeyup="minsToHours(noOfForms)) }}
+            {{ form.duration(class_="task-item", id=task.id, autocomplete="off", onkeyup="minsToHours(noOfForms)") }}
             <span class="min-to-hr"></span>
             </div>
             {% for error in form.duration.errors %}

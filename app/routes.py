@@ -107,15 +107,17 @@ def add_task(username, projectno):
             genre=form.genre.data,
             project_id=int(projectno)
             )
+        # If all task are complete, when new task added mark project as not complete
         are_all_tasks_complete = len({task.completed for task in Task.query.filter_by(project_id=int(projectno))})
         if are_all_tasks_complete == 1:
             project = Project.query.filter_by(id=int(projectno)).first_or_404()
             project.completed = False
+        
         db.session.add(task)
         db.session.commit()
         flash('Congratulations, you created a Task')
         return redirect(url_for('view_project',  username=username, projectno=projectno))
-    return render_template('forms/add_task.html', form=form)
+    return render_template('forms/add_task.html', form=form, genres=['Calculations', 'Design', 'Drawing', 'Drawings'])
     
 
 @app.route('/<username>/<projectno>/delete_task/<task_id>')

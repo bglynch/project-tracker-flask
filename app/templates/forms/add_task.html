@@ -1,33 +1,37 @@
-{% extends "base.html" %}
-
-{% block content %}
-    <h1>New Task</h1>
-    <hr>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.title.label }}
-            {{ form.title(size=50) }}
-            {% for error in form.title.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %} 
-        </p>
-        <p>
-            {{ form.description.label }}
-            {{ form.description(size=50) }}
-            {% for error in form.description.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %} 
-        </p>
-        <p>
-            {{ form.genre.label }}
-            {{ form.genre(size=50) }}
-            {% for error in form.genre.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %} 
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
+{% extends "base.html" %} {% block content %}
+<h1>New Task</h1>
+<form id="new-task-form" action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.title.label }} 
+        {{ form.title(autocomplete="off") }} 
+        {% for error in form.title.errors %}
+        <span style="color: red;">[{{ error }}]</span> 
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.description.label }} 
+        {{ form.description(autocomplete="off") }} 
+        {% for error in form.description.errors %}
+        <span style="color: red;">[{{ error }}]</span> 
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.genre.label }} {{ form.genre(autocomplete="off") }} 
+        {% for error in form.genre.errors %}
+        <span style="color: red;">[{{ error }}]</span> 
+        {% endfor %}
+    </p>
+    {% for genre in genres %}
+    <div class="chip valign-wrapper task-genres">
+        {{genre}}
+        <i class="material-icons">add</i>
+    </div>
+    {% endfor %}
+    <button class="btn waves-effect waves-light float-right" type="submit" name="action">Add Task
+        <i class="material-icons right">add_circle_outline</i>
+    </button>
+</form>
 
 
 {% endblock %}
