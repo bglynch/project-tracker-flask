@@ -22,12 +22,13 @@
         <span style="color: red;">[{{ error }}]</span> 
         {% endfor %}
     </p>
-    {% for genre in genres %}
-    <div class="chip valign-wrapper task-genres">
-        {{genre}}
+    <div id="task-genres" class="row">
+        {% for genre in genres %}
+        <div class="chip valign-wrapper task-genre waves-effect waves-light" onclick="addGenre()">{{genre}}
         <i class="material-icons">add</i>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
     <button class="btn waves-effect waves-light float-right" type="submit" name="action">Add Task
         <i class="material-icons right">add_circle_outline</i>
     </button>
@@ -35,3 +36,22 @@
 
 
 {% endblock %}
+
+{% block basescripts %}
+<script>
+function formInputToNumber() {
+    let tasks = document.getElementsByClassName("task-item");
+    for(var i = 0; i < tasks.length; i++){
+      tasks[i].type= "number";
+    }
+}
+window.onload = formInputToNumber;
+</script>
+
+<script>
+function addGenre() {
+    let genre = window.event.target.innerText.split(" ")[0];
+    document.getElementById('genre').value = genre;
+}
+</script>
+{{ super() }} {% endblock %}
