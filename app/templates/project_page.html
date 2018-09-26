@@ -1,4 +1,5 @@
 {% extends "base.html" %} {% block content %}
+<!--
 <div class="row">
    <ul class="collection col s3">
       <li class="collection-item">User:</li>
@@ -17,10 +18,7 @@
       <li class="collection-item">{{tasks[0:]|length}}</li>
    </ul>
 </div>
-
-<div class="row">
-   <iframe src="http://ipadstopwatch.com/embed.html" frameborder="0" scrolling="no" width="391" height="140"></iframe>
-</div>
+-->
 
 <div class="row">
    <a class="waves-effect waves-light btn-large grey darken-2" href="{{ url_for('add_task', username=current_user.username, projectno=job.id) }}">
@@ -29,6 +27,20 @@
 </div>
 
 <hr>
+{% if tasks[0:]|length < 1 %}
+<div class="row">
+   <h5>Add a task ...</h5>
+</div>
+
+{% else %}
+<div class="row">
+     <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">timer</i>Stopwatch for timing tasks</div>
+      <div class="collapsible-body"><span><iframe src="http://ipadstopwatch.com/embed.html" frameborder="0" scrolling="no" width="391" height="140"></iframe></span></div>
+    </li>
+  </ul>
+</div>
 
 <div id="tasks" class="row">
    <div class="col s12 green lighten-4">
@@ -79,12 +91,7 @@
       {% endif %} {% endfor %}
    </div>
 </div>
-
-
-<div class="fixed-action-btn">
-
-</div>
-
+{% endif %}
 
 {% endblock %}
 
@@ -118,4 +125,10 @@ function minsToHours(noOfForms) {
     }
 }
 </script>
+<script>
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+</script>
+
 {{ super() }} {% endblock %}
