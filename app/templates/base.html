@@ -3,22 +3,22 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css" /> 
-    {% block headscripts %}{% endblock %}
-    {% if title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css" /> {% block headscripts %}{% endblock %} {% if title %}
     <title>{{ title }} - Project Tracker</title>
     {% else %}
     <title>Project Tracker</title>
     {% endif %}
-   
+
 </head>
 
 <body>
-
     <nav>
         <div class="container">
             <div class="nav-wrapper">
                 <a href="{{ url_for('index') }}" class="brand-logo">Project Tracker</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                    <i class="material-icons">menu</i>
+                </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     {% if current_user.is_anonymous %}
                     <li><a href="{{ url_for('login') }}">Login</a></li>
@@ -29,8 +29,18 @@
                     {% endif %}
                 </ul>
             </div>
+            <ul class="sidenav" id="mobile-demo">
+                {% if current_user.is_anonymous %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                {% else %}
+                <li><a href="{{ url_for('index') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('user', username=current_user.username) }}">Projects</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% endif %}
+            </ul>
         </div>
     </nav>
+
     <div class="container">
         {% with messages = get_flashed_messages() %} {% if messages %}
         <ul>
@@ -45,10 +55,16 @@
         </ul>
         {% endif %} {% endwith %} {% block content %}{% endblock %}
     </div>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    {% block basescripts %}{% endblock %}
+    <script>
+        // Collapsable nav bar
+        $(document).ready(function() {
+            $('.sidenav').sidenav();
+        });
+    </script>
+    {% block basescripts %} {% endblock %}
 </body>
 
 </html>
