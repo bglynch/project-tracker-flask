@@ -11,7 +11,7 @@ from sqlalchemy.orm import lazyload
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html', title='Home')
+    return render_template('dashboard.html', title='Home')
     
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -66,7 +66,7 @@ def register():
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     jobs = Project.query.filter_by(user_id=user.id)
-    return render_template('user.html', user=user, jobs=jobs)
+    return render_template('projects.html', user=user, jobs=jobs)
 
 
     
@@ -98,7 +98,7 @@ def view_project(username, projectno):
     tasks = Task.query.filter_by(project_id=projectno)
     job = Project.query.filter_by(id=projectno).first_or_404()
     print(len(tasks[0:]))
-    return render_template('project_page.html', tasks=tasks, job=job, form=form)
+    return render_template('projects_tasks.html', tasks=tasks, job=job, form=form)
     
 
 @app.route('/<username>/<projectno>/add_task', methods=['GET', 'POST'])
