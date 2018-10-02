@@ -19,7 +19,7 @@
    </ul>
 </div>
 -->
-
+<h1>{{ job.name|title }}</h1>
 <div class="row">
    <a class="waves-effect waves-light btn-large grey darken-2" href="{{ url_for('add_task', username=current_user.username, projectno=job.id) }}">
         <i class="material-icons right">add_circle_outline</i>add task
