@@ -21,7 +21,7 @@ def login():
         return redirect(url_for('index'))    
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=(form.username.data).lower()).first()
+        user = User.query.filter_by(email=(form.email.data).lower()).first()
         
         # Error logging in
         if user is None or not user.check_password(form.password.data):
