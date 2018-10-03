@@ -43,4 +43,13 @@ class TaskForm(FlaskForm):
 class TaskCompleteForm(FlaskForm):
     duration = IntegerField('Task Time', validators=[DataRequired(), NumberRange(min=1, max=10000)])
     submit = SubmitField('Done')
-    
+
+class ResetPasswordRequestForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset') 
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField(
+        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Request Password Reset')
