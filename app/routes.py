@@ -60,7 +60,6 @@ def register():
     return render_template('forms/register.html', title='Register', form=form)
 
 
-
 # ------------------------------------------------------- ALL PROJECTS
 @app.route('/projects')
 @login_required
@@ -69,7 +68,6 @@ def view_projects():
     return render_template('projects.html', jobs=jobs)
 
 
-    
 # ------------------------------------------------------- NEW PROJECT
 @app.route('/add_project', methods=['GET', 'POST'])
 @login_required
@@ -97,8 +95,10 @@ def view_project_tasks(projectno):
     form = TaskCompleteForm()
     tasks = Task.query.filter_by(project_id=projectno)
     job = Project.query.filter_by(id=projectno).first_or_404()
-    print(len(tasks[0:]))
-    return render_template('projects_tasks.html', tasks=tasks, job=job, form=form)
+    if job.user_id == current_user.id:
+        return render_template('projects_tasks.html', tasks=tasks, job=job, form=form)
+    else:
+        return redirect(url_for('view_projects'))
     
 
 @app.route('/project/<projectno>/add_task', methods=['GET', 'POST'])
@@ -121,24 +121,39 @@ def add_task(projectno):
         db.session.commit()
         flash('Congratulations, you created a Task')
         return redirect(url_for('view_project_tasks', projectno=projectno))
-        
-    user = User.query.filter(User.id == current_user.id)[0]
-    list_of_genres = [project.tasks.all() for project in Project.query.join(Task, (Task.project_id==Project.id)).all() if project.user_id==user.id]
-    genres = sorted({item.genre for sublist in list_of_genres for item in sublist}) 
-    return render_template('forms/add_task.html', form=form, genres=genres)
+    
+    elif request.method == "GET":    
+        job = Project.query.filter_by(id=projectno).first_or_404()
+        user = User.query.filter(User.id == current_user.id)[0]
+        list_of_genres = [project.tasks.all() for project in Project.query.join(Task, (Task.project_id==Project.id)).all() if project.user_id==user.id]
+        genres = sorted({item.genre for sublist in list_of_genres for item in sublist}) 
+
+        if job.user_id == current_user.id:
+            return render_template('forms/add_task.html', form=form, genres=genres)
+        else:
+            flash('Not able to add task to projects that are not yours')
+            return redirect(url_for('view_projects'))
     
 
 @app.route('/project/<projectno>/delete_task/<task_id>')
 def delete_task(task_id, projectno):
-    task = Task.query.filter_by(id=int(task_id)).first_or_404()
-    db.session.delete(task)
-    db.session.commit()
-    return redirect(url_for('view_project_tasks', projectno=projectno))
+    job = Project.query.filter_by(id=projectno).first_or_404()
+    
+    if job.user_id == current_user.id:
+        task = Task.query.filter_by(id=int(task_id)).first_or_404()
+        db.session.delete(task)
+        db.session.commit()
+        return redirect(url_for('view_project_tasks', projectno=projectno))
+    else:
+        flash('Not able to delete a task that is not yours')
+        return redirect(url_for('view_projects'))
+        
 
 
 @app.route('/project/<projectno>/task_complete/<task_id>', methods=['GET', 'POST'])
 def complete_task(task_id, projectno):
     form = TaskCompleteForm()
+
     if form.validate_on_submit():
         
         # Complete Task
@@ -153,18 +168,30 @@ def complete_task(task_id, projectno):
             project = Project.query.filter_by(id=int(projectno)).first_or_404()
             project.completed = True
             db.session.commit()
-    return redirect(url_for('view_project_tasks', projectno=projectno))
+    
+    elif request.method == "GET":    
+        job = Project.query.filter_by(id=projectno).first_or_404()
+        if job.user_id == current_user.id:
+            return redirect(url_for('view_project_tasks', projectno=projectno))
+        else:
+            flash('Not able to add task to modify tasks that are not yours')
+            return redirect(url_for('view_projects'))
 
 @app.route('/<projectno>/task_not_complete/<task_id>')
 def task_not_complete(task_id, projectno):
-    are_all_tasks_complete = len({task.completed for task in Task.query.filter_by(project_id=int(projectno))})
-    if are_all_tasks_complete == 1:
-        project = Project.query.filter_by(id=int(projectno)).first_or_404()
-        project.completed = False
-    task = Task.query.filter_by(id=int(task_id)).first_or_404()
-    task.completed = False
-    db.session.commit()
-    return redirect(url_for('view_project_tasks', projectno=projectno))
+    job = Project.query.filter_by(id=projectno).first_or_404()
+    if job.user_id == current_user.id:
+        are_all_tasks_complete = len({task.completed for task in Task.query.filter_by(project_id=int(projectno))})
+        if are_all_tasks_complete == 1:
+            project = Project.query.filter_by(id=int(projectno)).first_or_404()
+            project.completed = False
+        task = Task.query.filter_by(id=int(task_id)).first_or_404()
+        task.completed = False
+        db.session.commit()
+        return redirect(url_for('view_project_tasks', projectno=projectno))
+    else:
+        flash('Not able to add task to modify tasks that are not yours')
+        return redirect(url_for('view_projects'))
 
 
 @app.route('/data')
