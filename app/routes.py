@@ -64,7 +64,7 @@ def register():
 # ------------------------------------------------------- ALL PROJECTS
 @app.route('/<username>')
 @login_required
-def user(username):
+def view_user_dashboard(username):
     user = User.query.filter_by(username=username).first_or_404()
     jobs = Project.query.filter_by(user_id=user.id)
     return render_template('projects.html', user=user, jobs=jobs)
@@ -87,7 +87,7 @@ def add_project(username):
         db.session.add(project)
         db.session.commit()
         flash('Congratulations, you created a Project')
-        return redirect(url_for('user',  username=username))
+        return redirect(url_for('view_user_dashboard',  username=username))
     return render_template('forms/add_project.html', form=form)
 
 
@@ -99,7 +99,7 @@ def view_project(username, projectno):
     tasks = Task.query.filter_by(project_id=projectno)
     job = Project.query.filter_by(id=projectno).first_or_404()
     print(len(tasks[0:]))
-    return render_template('projects_page.html', tasks=tasks, job=job, form=form)
+    return render_template('projects_tasks.html', tasks=tasks, job=job, form=form)
     
 
 @app.route('/<username>/<projectno>/add_task', methods=['GET', 'POST'])

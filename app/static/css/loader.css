@@ -99,15 +99,15 @@
             -ms-transform: translateY(100%);  /* IE 9 */
                 transform: translateY(100%);  /* Firefox 16+, IE 10+, Opera */
 
-        -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);  
-                transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+        -webkit-transition: all 0.1s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1.000);  
+                transition: all 0.1s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1.000);
     }
 
     
     .loaded #loader {
         opacity: 0;
-        -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);  
-                transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+        -webkit-transition: all 0.1s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1.000);  
+                transition: all 0.1s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1.000);
     }
     .loaded #loader-wrapper {
         visibility: hidden;
@@ -116,16 +116,13 @@
             -ms-transform: translateY(100%);  /* IE 9 */
                 transform: translateY(100%);  /* Firefox 16+, IE 10+, Opera */
 
-        -webkit-transition: all 0.3s 1s ease-out;  
-                transition: all 0.3s 1s ease-out;
+        -webkit-transition: all 0.1s 1s ease-out;  
+                transition: all 0.1s 1s ease-out;
     }
     
     /* JavaScript Turned Off */
     .no-js #loader-wrapper {
         display: none;
-    }
-    .no-js h1 {
-        color: #222222;
     }
 
     #content {

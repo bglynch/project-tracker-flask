@@ -28,7 +28,7 @@
                     <li><a href="{{ url_for('login') }}">Login</a></li>
                     {% else %}
                     <li><a href="{{ url_for('index') }}">Dashboard</a></li>
-                    <li><a href="{{ url_for('user', username=current_user.username) }}">Projects</a></li>
+                    <li><a href="{{ url_for('view_user_dashboard', username=current_user.username) }}">Projects</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     {% endif %}
                 </ul>
@@ -38,7 +38,7 @@
                 <li><a href="{{ url_for('login') }}">Login</a></li>
                 {% else %}
                 <li><a href="{{ url_for('index') }}">Dashboard</a></li>
-                <li><a href="{{ url_for('user', username=current_user.username) }}">Projects</a></li>
+                <li><a href="{{ url_for('view_user_dashboard', username=current_user.username) }}">Projects</a></li>
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 {% endif %}
             </ul>
