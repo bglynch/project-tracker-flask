@@ -58,7 +58,7 @@
     /* global crossfilter, dc, d3, queue*/
     //--------------------------------------------------- SECTION 01 - LOAD THE DATA
     queue()
-        .defer(d3.json, "http://project-tracker-flask-bglynch.c9users.io:8080/{{current_user.username}}/data")
+        .defer(d3.json, "http://project-tracker-flask-bglynch.c9users.io:8080/data")
         .await(makeGraphs);
 
     //--------------------------------------------------- SECTION 02 - CROSSFILTER THE DATA AND PARSE

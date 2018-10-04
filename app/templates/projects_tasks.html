@@ -20,8 +20,9 @@
 </div>
 -->
 <h1>{{ job.name|title }}</h1>
+<h5>{{ job.user_id }}</h5>
 <div class="row">
-   <a class="waves-effect waves-light btn-large grey darken-2" href="{{ url_for('add_task', username=current_user.username, projectno=job.id) }}">
+   <a class="waves-effect waves-light btn-large grey darken-2" href="{{ url_for('add_task', projectno=job.id) }}">
         <i class="material-icons right">add_circle_outline</i>add task
     </a>
 </div>
@@ -52,7 +53,7 @@
             <p class="col s8">{{ task.title }}</p>
 
             
-    <form id="task-completed-form" class="col s4" method="POST" action="{{ url_for('complete_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">
+    <form id="task-completed-form" class="col s4" method="POST" action="{{ url_for('complete_task', projectno=job.id, task_id=task.id) }}">
         {{ form.hidden_tag() }}
             <div class="input-field inline">
             <i class="material-icons prefix">access_time</i>
@@ -71,7 +72,7 @@
             <div class="col s8"><div class="chip">{{ task.genre }}</div></div>
             <div class="col s4">
             <a class="waves-effect waves-light btn-small">edit</a>
-            <a class="waves-effect waves-light btn-small" href="{{ url_for('delete_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">del</a>
+            <a class="waves-effect waves-light btn-small" href="{{ url_for('delete_task', projectno=job.id, task_id=task.id) }}">del</a>
             </div>
          </article>
       </div>
@@ -85,7 +86,7 @@
                <div class="chip">{{ task.genre }}</div>
                <div class="task-done grey-text">{{ task.title }} {{task.completed}} {{task.duration}}</div>
             </section>
-            <a class="waves-effect waves-light btn-small" href="{{ url_for('complete_not_task', username=current_user.username, projectno=job.id, task_id=task.id) }}">Not Complete</a>
+            <a class="waves-effect waves-light btn-small" href="{{ url_for('task_not_complete', projectno=job.id, task_id=task.id) }}">Not Complete</a>
          </article>
       </div>
       {% endif %} {% endfor %}

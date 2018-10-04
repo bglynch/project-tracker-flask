@@ -1,7 +1,7 @@
 {% extends "base.html" %} 
 {% block content %}
-<h1>{{ user.username|title }}'s Projects</h1>
-<a class="waves-effect waves-light btn-large" href="{{ url_for('add_project', username=current_user.username) }}">
+<h1>{{ current_user.username|title }}'s Projects</h1>
+<a class="waves-effect waves-light btn-large" href="{{ url_for('add_project') }}">
   <i class="material-icons right">create_new_folder</i>add project
 </a>
 <hr>
@@ -13,7 +13,7 @@
   {% for p in jobs %}
   <div class="row">
     <div class="col s12 m12 l12">
-      <a class="waves-effect waves-light btn-large col s11 grey darken-1" href="{{ url_for('view_project', username=user.username, projectno=p.id) }}" style="width:100%;">
+      <a class="waves-effect waves-light btn-large col s11 grey darken-1" href="{{ url_for('view_project_tasks', projectno=p.id) }}" style="width:100%;">
         <span class="col s2">{{ p.number }}</span>
         <span class="col s6">{{ p.name }}</span>    
         <span class="col s2">£{{ p.value }}</span>  
