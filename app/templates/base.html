@@ -3,7 +3,11 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css" /> {% block headscripts %}{% endblock %} {% if title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css')}}" type="text/css" /> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css" /> 
+    {% block headscripts %}
+    {% endblock %} 
+    {% if title %}
     <title>{{ title }} - Project Tracker</title>
     {% else %}
     <title>Project Tracker</title>
@@ -40,8 +44,13 @@
             </ul>
         </div>
     </nav>
-
     <div class="container">
+		<div id="loader-wrapper">
+			<div id="loader"></div>
+
+			<div class="loader-section"></div>
+
+		</div>
         {% with messages = get_flashed_messages() %} {% if messages %}
         <ul>
             {% for message in messages %}
@@ -63,6 +72,14 @@
         $(document).ready(function() {
             $('.sidenav').sidenav();
         });
+
+        $(document).ready(function() {
+        	setTimeout(function(){
+        		$('body').addClass('loaded');
+        	}, 0);
+	
+});
+        
     </script>
     {% block basescripts %} {% endblock %}
 </body>
