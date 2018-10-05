@@ -1,4 +1,27 @@
-/**/
+@import url('https://fonts.googleapis.com/css?family=Faster+One:100,200,300,400');
+@import url('https://fonts.googleapis.com/css?family=Julius+Sans+One');
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+/*-------- Colors ------------*/
+.color-header{
+    background-color: #f0f0f0 /*#1b5a92*/;
+}
+.color-panel{
+    background-color: #f8f8f8;
+    border-top: 3px solid #4066b2;
+}
+.color-background{
+    background-color: #ffffff;
+}
+.txt-first{
+    color: #ffffff;
+}
+.txt-second{
+    color: #7b5b26;
+}
+
+/*------ Standards -----------*/
 .overflow-auto{
     overflow: auto
 }
@@ -6,8 +29,54 @@
     float: right;
 }
 
-/**/
+h1{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 30px;
+}
 
+/*------- header -----------*/
+nav .header-txt{
+    font-family: 'Faster One', cursive;
+    font-size: 5.0rem;
+}
+nav .brand-logo, nav ul a, nav a {
+    color: #003399;
+}
+
+#nav-mobile span {
+    position: relative;
+    bottom: -15px;
+    font-weight: 600;
+}
+
+a.brand-logo {
+    width: fit-content;
+}
+@media only screen and (min-width: 601px){
+nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
+    height: 80px;
+    line-height: 80px;
+}}
+
+/*--------- dashboard -----------------*/
+#project_count, #money_count, #money_average{
+    color: #003399;
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin-top: 10px
+}
+.card-sub-title {
+    font-size: 14px;
+    line-height: 19px;
+    font-weight: lighter;
+}
+
+
+/*--------- projects -----------------*/
+
+
+
+/*--------- project tasks -----------------*/
 #tasks .card-content {
     padding: 16px 24px;
 }
