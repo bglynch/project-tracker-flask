@@ -14,6 +14,13 @@
 .color-background{
     background-color: #ffffff;
 }
+.add-button-background{
+    background-color: #9F7000;;
+}
+.add-button-background:hover{
+    background-color: #523a00;;
+}
+
 .txt-first{
     color: #ffffff;
 }
@@ -73,7 +80,30 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
 
 
 /*--------- projects -----------------*/
+.header-button-title {
+    margin-top: 20px;
+}
 
+.header-button-title #page-title {
+    margin: 0;
+    padding-top: 17px;
+}
+
+.project {
+    margin-bottom: 1.5rem;
+}
+
+.project a {
+    color: #000000;
+    width: 100%;
+    line-height: 5rem;
+    height: 5rem;
+}
+.project .btn-large:hover{
+    background-color: #00309f;
+    color: #fff;
+    border-top: 3px solid #b3b6bb;
+}
 
 
 /*--------- project tasks -----------------*/
