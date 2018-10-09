@@ -168,6 +168,8 @@ def complete_task(task_id, projectno):
             project = Project.query.filter_by(id=int(projectno)).first_or_404()
             project.completed = True
             db.session.commit()
+        
+        return redirect(url_for('view_project_tasks', projectno=projectno))
     
     elif request.method == "GET":    
         job = Project.query.filter_by(id=projectno).first_or_404()
