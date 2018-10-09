@@ -107,6 +107,10 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
 
 
 /*--------- project tasks -----------------*/
+#stopwatch{
+    margin-bottom: 0;
+}
+
 #tasks .card-content {
     padding: 16px 24px;
 }

@@ -39,10 +39,36 @@ class TaskForm(FlaskForm):
     description = TextAreaField('About the Task', validators=[Length(min=1, max=139)])
     genre = StringField('Genre', validators=[DataRequired(), Length(min=1, max=49)])
     submit = SubmitField('Add Task')
+
+
+from wtforms.widgets.core import html_params
+from wtforms.widgets import HTMLString
+
+class InlineButtonWidget(object):
+    """
+    Render a basic ``<button>`` field.
+    """
+    input_type = 'submit'
+    html_params = staticmethod(html_params)
+
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault('id', field.id)
+        kwargs.setdefault('type', self.input_type)
+        kwargs.setdefault('value', field.label.text)
+        return HTMLString('<button %s><i class="material-icons">done</i>' % self.html_params(name=field.name, **kwargs))
+
+
+class InlineSubmitField(BooleanField):
+    """
+    Represents an ``<button type="submit">``.  This allows checking if a given
+    submit button has been pressed.
+    """
+    widget = InlineButtonWidget()
+
  
 class TaskCompleteForm(FlaskForm):
     duration = IntegerField('Task Time', validators=[DataRequired(), NumberRange(min=1, max=10000)])
-    submit = SubmitField('Done')
+    submit = InlineSubmitField('complete')
 
 class ResetPasswordRequestForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
