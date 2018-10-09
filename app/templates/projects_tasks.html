@@ -31,26 +31,28 @@
       {% if task.completed == False %}
       <div class="card not_completed_tasks color-panel">
          <article class="card-content overflow-auto">
-            <p class="col s7">{{ task.title }}</p>
-             <form id="task-completed-form" class="col s5" method="POST" action="{{ url_for('complete_task', projectno=job.id, task_id=task.id) }}">
-                 {{ form.hidden_tag() }}
-                     <div class="input-field inline">
-                     <i class="material-icons prefix">access_time</i>
-                     {{ form.duration.label }}
-                     {{ form.duration(class_="task-item", id=task.id, autocomplete="off", onkeyup="minsToHours(noOfForms)") }}
-                     <span class="min-to-hr"></span>
-                     </div>
-                     {% for error in form.duration.errors %}
-                     <span style="color: red;">[{{ error }}]</span>
-                     {% endfor %} 
-                 {{ form.submit(class="add-button-background btn-small") }}
-             </form>            
+            <p class="col s12 m7">{{ task.title }}</p>
+            <div class="col s12 m5">
+                <form id="task-completed-form" method="POST" action="{{ url_for('complete_task', projectno=job.id, task_id=task.id) }}">
+                    {{ form.hidden_tag() }}
+                        <div class="input-field inline">
+                        <i class="material-icons prefix">access_time</i>
+                        {{ form.duration.label }}
+                        {{ form.duration(class_="task-item", id=task.id, autocomplete="off", onkeyup="minsToHours(noOfForms)") }}
+                        <span class="min-to-hr"></span>
+                        </div>
+                        {% for error in form.duration.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %} 
+                    {{ form.submit(class="add-button-background btn-small") }}
+                </form>            
+            </div>
          </article>
          <article class="card-action overflow-auto">
             <div class="col s7"><div class="chip">{{ task.genre }}</div></div>
             <div class="col s5">
             <a class="waves-effect waves-light btn-small red" href="{{ url_for('delete_task', projectno=job.id, task_id=task.id) }}"><i class="material-icons">delete</i></a>
-            <a class="waves-effect waves-light btn-small blue-grey"><i class="material-icons">edit</i></a>
+            <a class="waves-effect waves-light btn-small blue-grey tooltipped" data-position="bottom" data-tooltip="Edit Task"><i class="material-icons">edit</i></a>
             </div>
          </article>
       </div>
@@ -111,6 +113,7 @@ function minsToHours(noOfForms) {
 <script>
   $(document).ready(function(){
     $('.collapsible').collapsible();
+    $('.tooltipped').tooltip();
   });
 </script>
 

@@ -4,49 +4,61 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 /*-------- Colors ------------*/
-.color-header{
-    background-color: #f0f0f0 /*#1b5a92*/;
+
+.color-header {
+    background-color: #f0f0f0;
 }
-.color-panel{
+
+.color-panel {
     background-color: #f8f8f8;
     border-top: 3px solid #4066b2;
 }
-.color-background{
+
+.color-background {
     background-color: #ffffff;
 }
-.add-button-background{
-    background-color: #9F7000;;
-}
-.add-button-background:hover{
-    background-color: #523a00;;
+
+.add-button-background {
+    background-color: #9F7000;
 }
 
-.txt-first{
+.add-button-background:hover {
+    background-color: #523a00;
+}
+
+.txt-first {
     color: #ffffff;
 }
-.txt-second{
+
+.txt-second {
     color: #7b5b26;
 }
 
 /*------ Standards -----------*/
-.overflow-auto{
+
+.overflow-auto {
     overflow: auto
 }
-.float-right{
+
+.float-right {
     float: right;
 }
 
-h1{
+h1 {
     font-family: 'Open Sans', sans-serif;
     font-size: 30px;
 }
 
 /*------- header -----------*/
-nav .header-txt{
+
+nav .header-txt {
     font-family: 'Faster One', cursive;
     font-size: 5.0rem;
 }
-nav .brand-logo, nav ul a, nav a {
+
+nav .brand-logo,
+nav ul a,
+nav a {
     color: #003399;
 }
 
@@ -59,19 +71,28 @@ nav .brand-logo, nav ul a, nav a {
 a.brand-logo {
     width: fit-content;
 }
-@media only screen and (min-width: 601px){
-nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
-    height: 80px;
-    line-height: 80px;
-}}
+
+@media only screen and (min-width: 601px) {
+    nav,
+    nav .nav-wrapper i,
+    nav a.sidenav-trigger,
+    nav a.sidenav-trigger i {
+        height: 80px;
+        line-height: 80px;
+    }
+}
 
 /*--------- dashboard -----------------*/
-#project_count, #money_count, #money_average{
+
+#project_count,
+#money_count,
+#money_average {
     color: #003399;
     font-weight: 700;
     font-size: 1.6rem;
     margin-top: 10px
 }
+
 .card-sub-title {
     font-size: 14px;
     line-height: 19px;
@@ -80,6 +101,7 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
 
 
 /*--------- projects -----------------*/
+
 .header-button-title {
     margin-top: 20px;
 }
@@ -99,7 +121,8 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
     line-height: 5rem;
     height: 5rem;
 }
-.project .btn-large:hover{
+
+.project .btn-large:hover {
     background-color: #00309f;
     color: #fff;
     border-top: 3px solid #b3b6bb;
@@ -107,18 +130,20 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
 
 
 /*--------- project tasks -----------------*/
-#stopwatch{
+
+#stopwatch {
     margin-bottom: 0;
 }
 
 #tasks .card-content {
     padding: 16px 24px;
 }
+
 #tasks .card-action {
     padding: 8px 24px;
 }
 
-#tasks  .chip {
+#tasks .chip {
     margin-bottom: 0px;
 }
 
@@ -130,29 +155,34 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
     position: relative;
     float: right;
 }
+
 #task-completed-form button {
     position: relative;
     float: right;
 }
 
-
-.task-done{
+.task-done {
     display: inline-block;
     text-decoration: line-through;
 }
 
-#task-completed-form{
+#task-completed-form {
     margin-bottom: 0px;
+    position: relative;
+    float: right;
 }
+
 #task-completed-form .input-field.inline {
     margin-bottom: 0px;
     margin-top: 0px;
 }
+
 #task-completed-form .input-field .prefix {
-    top:0rem;
+    top: 0rem;
     font-size: 1.75rem;
     width: 1.75rem;
 }
+
 #task-completed-form label {
     height: 1px;
     line-height: 20px;
@@ -161,25 +191,27 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
     top: -25px;
     font-size: 0.9rem;
 }
+
 #task-completed-form .input-field>label:not(.label-icon).active {
     transform: translateY(8px) scale(0.8);
 }
-#task-completed-form .task-item{
+
+#task-completed-form .task-item {
     margin-bottom: 0px;
     line-height: 20px;
     height: 20px;
     margin-left: 25px;
     width: 70px;
-    
 }
+
 #task-completed-form #submit {
-        line-height: 20px;
+    line-height: 20px;
     height: 20px;
     font-size: 0.8rem;
     margin: 0 10px;
 }
 
-span.min-to-hr {
+.min-to-hr {
     position: absolute;
     font-size: 0.75rem;
     top: 23px;
@@ -187,14 +219,31 @@ span.min-to-hr {
     color: #9e9e9e;
 }
 
-/*forms*/
-input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]){
-        border-bottom: 1px solid #9F7000;
+/*-----------forms----------------*/
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #9F7000;
     -webkit-box-shadow: 0 1px 0 0 #9F7000;
     box-shadow: 0 1px 0 0 #9F7000;
 }
 
-.material-tooltip{
+.input-field .prefix.active {
+    color: #9F7000;
+}
+
+.material-tooltip {
     border-radius: 4px;
     padding: 4px 8px;
     font-weight: 500;
@@ -203,4 +252,16 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
     letter-spacing: 0.3px;
     -webkit-font-smoothing: antialiased;
     min-height: auto;
+}
+
+/*----MOBILE SCREEN-----*/
+
+@media only screen and (max-width: 600px) {
+    /*--------- project tasks -----------------*/
+    .card .card-content p {
+        margin-bottom: 2rem;
+    }
+    #tasks .card-content {
+        overflow-y: hidden;
+    }
 }
