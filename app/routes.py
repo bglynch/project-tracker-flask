@@ -108,7 +108,6 @@ def add_task(projectno):
     if form.validate_on_submit():
         task = Task(
             title=form.title.data,
-            description = form.description.data,
             genre=form.genre.data,
             project_id=int(projectno)
             )

@@ -36,7 +36,6 @@ class ProjectForm(FlaskForm):
  
 class TaskForm(FlaskForm):
     title = StringField('Task', validators=[DataRequired(), Length(min=1, max=139)])
-    description = TextAreaField('About the Task', validators=[Length(min=1, max=139)])
     genre = StringField('Genre', validators=[DataRequired(), Length(min=1, max=49)])
     submit = SubmitField('Add Task')
 

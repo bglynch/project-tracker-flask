@@ -10,13 +10,6 @@
         {% endfor %}
     </p>
     <p>
-        {{ form.description.label }} 
-        {{ form.description(autocomplete="off") }} 
-        {% for error in form.description.errors %}
-        <span style="color: red;">[{{ error }}]</span> 
-        {% endfor %}
-    </p>
-    <p>
         {{ form.genre.label }} {{ form.genre(autocomplete="off") }} 
         {% for error in form.genre.errors %}
         <span style="color: red;">[{{ error }}]</span> 
@@ -24,13 +17,12 @@
     </p>
     <div id="task-genres" class="row">
         {% for genre in genres %}
-        <div class="chip valign-wrapper task-genre waves-effect waves-light" onclick="addGenre()">{{genre}}
-        <i class="material-icons">add</i>
+        <div class="chip valign-wrapper task-genre waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Add Genre" onclick="addGenre()">{{genre}}
         </div>
         {% endfor %}
     </div>
-    <button class="btn waves-effect waves-light float-right" type="submit" name="action">Add Task
-        <i class="material-icons right">add_circle_outline</i>
+    <button class="btn waves-effect waves-light float-right add-button-background" type="submit" name="action">Add Task
+        <i class="material-icons right">note_add</i>
     </button>
 </form>
 
@@ -53,5 +45,10 @@ function addGenre() {
     let genre = window.event.target.innerText.split(" ")[0];
     document.getElementById('genre').value = genre;
 }
+</script>
+<script>
+      $(document).ready(function(){
+    $('.tooltipped').tooltip();
+  });
 </script>
 {{ super() }} {% endblock %}

@@ -127,6 +127,12 @@ nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
     height: 20px;
     font-size: 0.8rem;
     margin: 0 10px;
+    position: relative;
+    float: right;
+}
+#task-completed-form button {
+    position: relative;
+    float: right;
 }
 
 
@@ -179,4 +185,22 @@ span.min-to-hr {
     top: 23px;
     left: 24px;
     color: #9e9e9e;
+}
+
+/*forms*/
+input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]){
+        border-bottom: 1px solid #9F7000;
+    -webkit-box-shadow: 0 1px 0 0 #9F7000;
+    box-shadow: 0 1px 0 0 #9F7000;
+}
+
+.material-tooltip{
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-weight: 500;
+    line-height: 16px;
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
+    -webkit-font-smoothing: antialiased;
+    min-height: auto;
 }

@@ -31,8 +31,8 @@
       {% if task.completed == False %}
       <div class="card not_completed_tasks color-panel">
          <article class="card-content overflow-auto">
-            <p class="col s8">{{ task.title }}</p>
-             <form id="task-completed-form" class="col s4" method="POST" action="{{ url_for('complete_task', projectno=job.id, task_id=task.id) }}">
+            <p class="col s7">{{ task.title }}</p>
+             <form id="task-completed-form" class="col s5" method="POST" action="{{ url_for('complete_task', projectno=job.id, task_id=task.id) }}">
                  {{ form.hidden_tag() }}
                      <div class="input-field inline">
                      <i class="material-icons prefix">access_time</i>
@@ -47,10 +47,10 @@
              </form>            
          </article>
          <article class="card-action overflow-auto">
-            <div class="col s8"><div class="chip">{{ task.genre }}</div></div>
-            <div class="col s4">
-            <a class="waves-effect waves-light btn-small blue-grey"><i class="material-icons">edit</i></a>
+            <div class="col s7"><div class="chip">{{ task.genre }}</div></div>
+            <div class="col s5">
             <a class="waves-effect waves-light btn-small red" href="{{ url_for('delete_task', projectno=job.id, task_id=task.id) }}"><i class="material-icons">delete</i></a>
+            <a class="waves-effect waves-light btn-small blue-grey"><i class="material-icons">edit</i></a>
             </div>
          </article>
       </div>
