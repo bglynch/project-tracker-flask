@@ -35,6 +35,9 @@
 }
 
 /*------ Standards -----------*/
+html{
+    /*font-family: 'Open Sans', sans-serif;*/
+}
 
 .overflow-auto {
     overflow: auto
@@ -71,15 +74,11 @@ nav a {
 a.brand-logo {
     width: fit-content;
 }
-
-@media only screen and (min-width: 601px) {
-    nav,
-    nav .nav-wrapper i,
-    nav a.sidenav-trigger,
-    nav a.sidenav-trigger i {
-        height: 80px;
-        line-height: 80px;
-    }
+#mobile-demo li a{
+    position: relative;
+    bottom: -15px;
+    font-weight: 600;
+    color: #003399;
 }
 
 /*--------- dashboard -----------------*/
@@ -259,7 +258,16 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 /*----MOBILE SCREEN-----*/
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 601px) {
+    /*------- header -----------*/
+    nav,
+    nav .nav-wrapper i,
+    nav a.sidenav-trigger,
+    nav a.sidenav-trigger i {
+        height: 80px;
+        line-height: 80px;
+    }
+    
     /*--------- project tasks -----------------*/
     .card .card-content p {
         margin-bottom: 2rem;

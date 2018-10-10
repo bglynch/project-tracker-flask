@@ -1,34 +1,46 @@
-{% extends "base.html" %} 
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="row header-button-title">
-<h1 id="page-title" class="col s8">{{ current_user.username|title }}'s Projects</h1>
-<a class="col s4 waves-effect waves-light btn-large add-button-background" href="{{ url_for('add_project') }}">
-  <i class="material-icons right">create_new_folder</i>add project
-</a>
+  <h1 id="page-title" class="col s8">{{ current_user.username|title }}'s Projects</h1>
+  <a class="col s4 waves-effect waves-light btn-large add-button-background" href="{{ url_for('add_project') }}">
+    <i class="material-icons right">create_new_folder</i>add project
+  </a>
 </div>
-<hr>
-{% if jobs[0:]|length < 1 %}
-  <div class="row">
-     <h5>You currently have no projects, please add one to get started ...</h5>
-  </div>
+<hr> 
+{% if jobs[0:]|length< 1 %} 
+<div class="row">
+  <h5>You currently have no projects, please add one to get started ...</h5>
+</div>
+
 {% else %}
   <div class="row">
-  {% for p in jobs %}
+    <h5 class="col s12">Active Projects</h5>
+    {% for p in jobs %} 
+    {% if p.completed==False %}
     <div class="col s12 project">
       <a class="waves-effect waves-light btn-large col color-panel" href="{{ url_for('view_project_tasks', projectno=p.id) }}">
         <span class="col s2">{{ p.number }}</span>
         <span class="col s6">{{ p.name }}</span>    
         <span class="col s2">£{{ p.value }}</span>  
-        {% if p.completed==False %}
         <span class="col s2"><i class="material-icons">check_box_outline_blank</i></span>   
-        {% else %}
-        <span class="col s2"><i class="material-icons">check_box</i></span>   
-        {% endif %}      
       </a>
     </div>
-  {% endfor %}
+    {% endif %} 
+    {% endfor %}
+    
+    <h5 class="col s12">Completed Projects</h5>
+    {% for p in jobs %} 
+    {% if p.completed==True %}
+    <div class="col s12 project">
+      <a class="waves-effect waves-light btn-large col color-panel" href="{{ url_for('view_project_tasks', projectno=p.id) }}">
+        <span class="col s2 grey-text">{{ p.number }}</span>
+        <span class="col s6 grey-text">{{ p.name }}</span>    
+        <span class="col s2 grey-text">£{{ p.value }}</span>  
+        <span class="col s2"><i class="material-icons">check_box</i></span>   
+      </a>
+    </div>
+    {% endif %} 
+    {% endfor %}
   </div>
-  
-{% endif %}
-{% endblock %}
 
+  {% endif %} 
+{% endblock %}
