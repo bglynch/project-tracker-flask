@@ -134,6 +134,9 @@ a.brand-logo {
 #stopwatch {
     margin-bottom: 0;
 }
+.collapsible-body{
+    overflow: auto;
+}
 
 #tasks .card-content {
     padding: 16px 24px;
