@@ -85,7 +85,7 @@ def add_project():
         db.session.commit()
         flash('Congratulations, you created a Project')
         return redirect(url_for('view_projects'))
-    return render_template('forms/add_project.html', form=form)
+    return render_template('forms/add_project.html', title="Create Project",  form=form)
 
 
 # ------------------------------------------------------- SINGLE PROJECTS
@@ -99,7 +99,42 @@ def view_project_tasks(projectno):
         return render_template('projects_tasks.html', tasks=tasks, job=job, form=form)
     else:
         return redirect(url_for('view_projects'))
+
     
+@app.route('/project/<int:projectno>/edit_project', methods=['GET', 'POST'])
+@login_required
+def edit_project(projectno):
+    job = Project.query.filter_by(id=projectno).first_or_404()
+    if job.user_id != current_user.id:
+        abort(403)
+    form = ProjectForm()
+    if form.validate_on_submit():
+        job.number=form.number.data
+        job.name = form.name.data.lower()
+        job.value=form.value.data
+        job.client=form.client.data    
+        db.session.commit()
+        flash('Your project has been updated!')
+        return redirect(url_for('view_project_tasks', projectno=projectno))
+    elif request.method == 'GET':
+        form.number.data = job.number
+        form.name.data = job.name
+        form.value.data = job.value
+        form.client.data = job.client
+    return render_template('forms/add_project.html', title="Edit Project", form=form)
+
+    
+@app.route('/project/<int:projectno>/delete_project', methods=['GET', 'POST'])  
+@login_required
+def delete_project(projectno):
+    job = Project.query.filter_by(id=projectno).first_or_404()
+    if job.user_id != current_user.id:
+        abort(403)
+    db.session.delete(job)
+    db.session.commit()
+    flash('Project successfully deleted')
+    return redirect(url_for('view_projects'))
+
 
 @app.route('/project/<projectno>/add_task', methods=['GET', 'POST'])
 @login_required
@@ -137,7 +172,7 @@ def add_task(projectno):
 @app.route('/project/<projectno>/delete_task/<task_id>')
 def delete_task(task_id, projectno):
     job = Project.query.filter_by(id=projectno).first_or_404()
-    
+
     if job.user_id == current_user.id:
         task = Task.query.filter_by(id=int(task_id)).first_or_404()
         db.session.delete(task)
@@ -169,8 +204,6 @@ def edit_task(task_id, projectno):
     return render_template('forms/add_task.html', title='Edit Task', form=form, genres=genres)
 
         
-
-
 @app.route('/project/<projectno>/task_complete/<task_id>', methods=['GET', 'POST'])
 def complete_task(task_id, projectno):
     form = TaskCompleteForm()
@@ -199,6 +232,7 @@ def complete_task(task_id, projectno):
         else:
             flash('Not able to add task to modify tasks that are not yours')
             return redirect(url_for('view_projects'))
+
 
 @app.route('/<projectno>/task_not_complete/<task_id>')
 def task_not_complete(task_id, projectno):
@@ -238,6 +272,7 @@ def user_data():
         for job in user_projects] 
     
     return jsonify(data)
+ 
     
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
@@ -252,6 +287,7 @@ def reset_password_request():
         return redirect(url_for('login'))
     return render_template('forms/reset_password_request.html',
                            title='Reset Password', form=form)
+
                            
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):

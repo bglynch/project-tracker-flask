@@ -1,18 +1,21 @@
 {% extends "base.html" %} 
 {% block content %}
 <div class="row header-button-title">
-<h1 id="page-title" class="col s8">{{ job.name|title }}</h1>
-   <!--<a class="col s4 waves-effect waves-light btn-large add-button-background" href="{{ url_for('add_task', projectno=job.id) }}">-->
-   <!--     <i class="material-icons right">add_circle_outline</i>add task-->
-   <!-- </a>-->
-          <div id="project-action-buttons" class="col s4">
-               <a class="waves-effect waves-light btn-floating btn-large red" href="#">
-                  <i class="material-icons">delete</i>
-               </a>
-               <a class="waves-effect waves-light btn-floating btn-large blue-grey tooltipped" href="#" data-position="bottom" data-tooltip="Edit Task">
-                  <i class="material-icons">edit</i>
-               </a>
-          </div>     
+   <h1 id="page-title" class="col s8">{{ job.name|title }}</h1>
+   <div id="project-action-buttons" class="col s4">
+      <a class="waves-effect waves-light btn-floating btn-large red tooltipped" 
+         href="{{ url_for('delete_project', projectno=job.id) }}" 
+         data-position="bottom" 
+         data-tooltip="Delete Project">
+         <i class="material-icons">delete</i>
+      </a>
+      <a class="waves-effect waves-light btn-floating btn-large blue-grey tooltipped" 
+         href="{{ url_for('edit_project', projectno=job.id) }}" 
+         data-position="bottom" 
+         data-tooltip="Edit Project">
+         <i class="material-icons">edit</i>
+      </a>
+   </div>     
 </div>
 <hr>
 

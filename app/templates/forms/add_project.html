@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>New Project</h1>
+    <h1>{{title}}</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
@@ -32,8 +32,8 @@
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %} 
         </p>
-        <button class="btn waves-effect waves-light float-right add-button-background" type="submit" name="action">Create Project
-            <i class="material-icons right">create_new_folder</i>
+        <button class="btn waves-effect waves-light float-right add-button-background" type="submit" name="action">
+            {{title}}<i class="material-icons right">create_new_folder</i>
         </button>
     </form>
 
