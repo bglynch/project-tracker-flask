@@ -1,5 +1,5 @@
 from app import app, db
-from flask import render_template, flash, redirect, url_for, request, jsonify
+from flask import render_template, flash, redirect, url_for, request, jsonify, abort
 from .forms import LoginForm, RegistrationForm, ProjectForm, TaskForm, TaskCompleteForm, ResetPasswordRequestForm, ResetPasswordForm
 from flask_login import current_user, login_user, logout_user, login_required
 from .models import User, Project, Task
@@ -146,6 +146,28 @@ def delete_task(task_id, projectno):
     else:
         flash('Not able to delete a task that is not yours')
         return redirect(url_for('view_projects'))
+
+
+@app.route('/project/<projectno>/update_task/<int:task_id>', methods=['GET', 'POST'])
+def update_task(task_id, projectno):
+    job = Project.query.filter_by(id=projectno).first_or_404()
+    task = Task.query.get_or_404(task_id)
+    list_of_genres = [project.tasks.all() for project in Project.query.join(Task, (Task.project_id==Project.id)).all() if project.user_id==current_user.id]
+    genres = sorted({item.genre for sublist in list_of_genres for item in sublist}) 
+    if job.user_id != current_user.id:
+        abort(403)
+    form = TaskForm()
+    if form.validate_on_submit():
+        task.title = form.title.data
+        task.genre = form.genre.data
+        db.session.commit()
+        flash('Your task has been updated!')
+        return redirect(url_for('view_project_tasks', projectno=projectno))
+    elif request.method == 'GET':
+        form.title.data = task.title
+        form.genre.data = task.genre
+    return render_template('forms/add_task.html', title='Update Task', form=form, genres=genres)
+
         
 
 

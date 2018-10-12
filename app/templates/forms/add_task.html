@@ -1,54 +1,56 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block content %}
 <h1>New Task</h1>
-<form id="new-task-form" action="" method="post">
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.title.label }} 
-        {{ form.title(autocomplete="off") }} 
-        {% for error in form.title.errors %}
-        <span style="color: red;">[{{ error }}]</span> 
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.genre.label }} {{ form.genre(autocomplete="off") }} 
-        {% for error in form.genre.errors %}
-        <span style="color: red;">[{{ error }}]</span> 
-        {% endfor %}
-    </p>
-    <div id="task-genres" class="row">
-        {% for genre in genres %}
-        <div class="chip valign-wrapper task-genre waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Add Genre" onclick="addGenre()">{{genre}}
+    <form id="new-task-form" action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }} 
+            {{ form.title(autocomplete="off") }} 
+            {% for error in form.title.errors %}
+                <span style="color: red;">[{{ error }}]</span> 
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.genre.label }} 
+            {{ form.genre(autocomplete="off") }} 
+            {% for error in form.genre.errors %}
+                <span style="color: red;">[{{ error }}]</span> 
+            {% endfor %}
+        </p>
+        <div id="task-genres" class="row">
+            {% for genre in genres %}
+                <div class="chip valign-wrapper task-genre waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Add Genre" onclick="addGenre()">
+                    {{genre}}
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-    <button class="btn waves-effect waves-light float-right add-button-background" type="submit" name="action">Add Task
-        <i class="material-icons right">note_add</i>
-    </button>
-</form>
-
-
+        <button class="btn waves-effect waves-light float-right add-button-background" type="submit" name="action">
+            Add Task<i class="material-icons right">note_add</i>
+        </button>
+    </form>
 {% endblock %}
 
 {% block basescripts %}
 <script>
-function formInputToNumber() {
-    let tasks = document.getElementsByClassName("task-item");
-    for(var i = 0; i < tasks.length; i++){
-      tasks[i].type= "number";
+    function formInputToNumber() {
+        let tasks = document.getElementsByClassName("task-item");
+        for(var i = 0; i < tasks.length; i++){
+          tasks[i].type= "number";
+        }
     }
-}
-window.onload = formInputToNumber;
+    window.onload = formInputToNumber;
 </script>
 
 <script>
-function addGenre() {
-    let genre = window.event.target.innerText.split(" ")[0];
-    document.getElementById('genre').value = genre;
-}
+    function addGenre() {
+        let genre = window.event.target.innerText.split(" ")[0];
+        document.getElementById('genre').value = genre;
+    }
 </script>
 <script>
-      $(document).ready(function(){
-    $('.tooltipped').tooltip();
-  });
+    $(document).ready(function(){
+        $('.tooltipped').tooltip();
+    });
 </script>
-{{ super() }} {% endblock %}
+{{ super() }} 
+{% endblock %}

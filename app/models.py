@@ -5,6 +5,7 @@ from flask_login import UserMixin
 from time import time
 import jwt
 
+
 class User(UserMixin, db.Model):
     id              = db.Column(db.Integer, primary_key=True)
     username        = db.Column(db.String(64), index=True, unique=True)
@@ -35,6 +36,7 @@ class User(UserMixin, db.Model):
             return
         return User.query.get(id)  
 
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
@@ -53,6 +55,7 @@ class Project(db.Model):
 
     def __repr__(self):
         return '<Project {}>'.format(self.name)
+
 
 class Task(db.Model):
     id           = db.Column(db.Integer, primary_key=True)
