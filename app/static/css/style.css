@@ -130,6 +130,12 @@ a.brand-logo {
 
 /*--------- project tasks -----------------*/
 
+#project-action-buttons .btn-floating.btn-large {
+    position: relative;
+    float: right;
+    margin-left: 26px;
+}
+
 #stopwatch {
     margin-bottom: 0;
 }
