@@ -1,35 +1,29 @@
 /* global crossfilter, dc, d3, queue*/
-//--------------------------------------------------- SECTION 01 - LOAD THE DATA
+
+/*-----------------------------------*/
+/*---- Section 01: Load the Data ----*/
+/*-----------------------------------*/
 queue()
     .defer(d3.json, "http://project-tracker-flask-bglynch.c9users.io:8080/data")
     .await(makeGraphs);
 
-//--------------------------------------------------- SECTION 02 - CROSSFILTER THE DATA AND PARSE
+/*----------------------------------------------------*/
+/*---- Section 02: CROSSFILTER THE DATA AND PARSE ----*/
+/*----------------------------------------------------*/
 function makeGraphs(error, projectData) {
     var ndx = crossfilter(projectData);
-    show_total_projects(ndx);
     show_project_numbers(ndx);
     show_clients(ndx);
     dc.renderAll();
 }
 
-//-- PIE CHARTS
-function show_total_projects(ndx) {
-    var dim = ndx.dimension(dc.pluck('user'));
-    var group = dim.group();
+/*------------------------------------------------*/
+/*---- Section 03: Create the Chart Finctions ----*/
+/*------------------------------------------------*/
 
-    dc.pieChart("#total_projects")
-        .height(250)
-        .radius(100)
-        .transitionDuration(100)
-        .dimension(dim)
-        .group(group)
-        .minAngleForLabel(.2);
-}
-
-//-- NUMBER - AVERAGE HOUSE PRICE
+/*---- Number Displays: Total Porjects/TotalEarnings/Avg Value ----*/
 function show_project_numbers(ndx) {
-    var averageHousePrice = ndx.groupAll().reduce(
+    var projectNumbers = ndx.groupAll().reduce(
         function(p, v) {
             p.count++;
             p.total += v.project_value;
@@ -43,7 +37,7 @@ function show_project_numbers(ndx) {
                 p.average = 0;
             }
             else {
-                p.total -= v.price;
+                p.total -= v.project_value;
                 p.average = p.total / p.count;
             }
             return p;
@@ -51,7 +45,6 @@ function show_project_numbers(ndx) {
         function() {
             return { count: 0, total: 0, average: 0 };
         }
-
     );
 
     dc.numberDisplay("#project_count")
@@ -63,7 +56,8 @@ function show_project_numbers(ndx) {
                 return d.count;
             }
         })
-        .group(averageHousePrice);
+        .group(projectNumbers);
+    
     dc.numberDisplay("#money_count")
         .valueAccessor(function(d) {
             if (d.count == 0) {
@@ -73,7 +67,8 @@ function show_project_numbers(ndx) {
                 return d.total;
             }
         })
-        .group(averageHousePrice);
+        .group(projectNumbers);
+    
     dc.numberDisplay("#money_average")
         .valueAccessor(function(d) {
             if (d.count == 0) {
@@ -83,10 +78,10 @@ function show_project_numbers(ndx) {
                 return d.average;
             }
         })
-        .group(averageHousePrice);
+        .group(projectNumbers);
 }
 
-//-- ROW CHART - PROPERTY AREAS
+/*---- Row Charts: Clients ----*/
 function show_clients(ndx) {
     var dim = ndx.dimension(dc.pluck('project_client'));
     var group = dim.group();
@@ -97,5 +92,6 @@ function show_clients(ndx) {
         .dimension(dim)
         .group(group)
         .elasticX(true)
-        .xAxis().ticks(4);
+        .xAxis().ticks(2)
+        ;
 }
