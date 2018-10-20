@@ -6,23 +6,28 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
     
+    <!-- STYLESHEETS: libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    {% block csslibraries %}{% endblock %} 
+    
+    <!-- STYLESHEETS: custom -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css')}}" type="text/css" /> 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" type="text/css" /> 
-    {% block headscripts %}
-    {% endblock %} 
+    {% block csscustom %}{% endblock %} 
+    
     {% if title %}
     <title>{{ title }} - Project Tracker</title>
     {% else %}
     <title>Project Tracker</title>
     {% endif %}
-
 </head>
 
 <body class="color-background">
+    <!--navigation-->
     <nav class="color-header">
         <div class="container">
+            <!--navigation on laptop/desktop-->
             <div class="nav-wrapper">
                 <a href="{{ url_for('index') }}" class="brand-logo header-txt">
                 PT
@@ -40,6 +45,7 @@
                     {% endif %}
                 </ul>
             </div>
+            <!--navigation on mobile/tablet-->
             <ul class="sidenav" id="mobile-demo">
                 <div class="row" style="height: 57px;">
                     <a href="/index" class="brand-logo header-txt">PT</a>
@@ -54,14 +60,14 @@
             </ul>
         </div>
     </nav>
-    <div class="container">
+    <main class="container">
+        <!--loading screen-->
 		<div id="loader-wrapper">
 			<div id="loader"></div>
-
 			<div class="loader-section"></div>
-
 		</div>
-        {% with messages = get_flashed_messages() %} {% if messages %}
+        {% with messages = get_flashed_messages() %} 
+        {% if messages %}
         <ul>
             {% for message in messages %}
             <div class="row">
@@ -72,26 +78,19 @@
             </div>
             {% endfor %}
         </ul>
-        {% endif %} {% endwith %} {% block content %}{% endblock %}
-    </div>
-
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- SCRIPTS: libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-        // Collapsable nav bar
-        $(document).ready(function() {
-            $('.sidenav').sidenav();
-        });
+    {% block scriptlibraries %}{% endblock %}
+    
+    <!-- SCRIPTS: custom -->
+    <script src="{{ url_for('static', filename='js/init.js')}}"></script>
+    {% block scriptcustom %}{% endblock %}
 
-        $(document).ready(function() {
-        	setTimeout(function(){
-        		$('body').addClass('loaded');
-        	}, 0);
-	
-});
-        
-    </script>
-    {% block basescripts %} {% endblock %}
 </body>
-
 </html>
