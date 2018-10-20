@@ -1,142 +1,102 @@
 {% extends "base.html" %} 
-{% block content %}
-<div class="row header-button-title">
-   <h1 id="page-title" class="col s8">{{ job.name|title }}</h1>
-   <div id="project-action-buttons" class="col s4">
-      <a class="waves-effect waves-light btn-floating btn-large red tooltipped" 
-         href="{{ url_for('delete_project', projectno=job.id) }}" 
-         data-position="bottom" 
-         data-tooltip="Delete Project">
-         <i class="material-icons">delete</i>
-      </a>
-      <a class="waves-effect waves-light btn-floating btn-large blue-grey tooltipped" 
-         href="{{ url_for('edit_project', projectno=job.id) }}" 
-         data-position="bottom" 
-         data-tooltip="Edit Project">
-         <i class="material-icons">edit</i>
-      </a>
-   </div>     
-</div>
-<hr>
+        {% block content %}
+        <div class="row header-button-title">
+            <h1 id="page-title" class="col s8">{{ job.name|title }}</h1>
+            <div id="project-action-buttons" class="col s4">
+                <a class="waves-effect waves-light btn-floating btn-large red tooltipped" 
+                href="{{ url_for('delete_project', projectno=job.id) }}" 
+                data-position="bottom" 
+                data-tooltip="Delete Project">
+                <i class="material-icons">delete</i>
+                </a>
+                <a class="waves-effect waves-light btn-floating btn-large blue-grey tooltipped" 
+                href="{{ url_for('edit_project', projectno=job.id) }}" 
+                data-position="bottom" 
+                data-tooltip="Edit Project">
+                <i class="material-icons">edit</i>
+                </a>
+            </div>     
+        </div>
+        <hr>
 
-{% if tasks[0:]|length < 1 %}
-<div class="row">
-   <h5>Add a task ...</h5>
-</div>
+        {% if tasks[0:]|length < 1 %}
+        <div class="row">
+            <h5>Add a task ...</h5>
+        </div>
+        {% else %}
+        <div id="stopwatch" class="row">
+            <ul class="collapsible">
+                <li>
+                <div class="collapsible-header"><i class="material-icons">timer</i>Stopwatch for timing tasks</div>
+                <div class="collapsible-body">
+                    <span>
+                        <iframe src="http://ipadstopwatch.com/embed.html" class="col s12" frameborder="0" scrolling="no" height="140"></iframe>
+                    </span>
+                </div>
+                </li>
+            </ul>
+        </div>
+        <a class="col s4 waves-effect waves-light btn-large add-button-background" href="{{ url_for('add_task', projectno=job.id) }}">
+            <i class="material-icons right">add_circle_outline</i>add task
+        </a>
 
-{% else %}
-<div id="stopwatch" class="row">
-     <ul class="collapsible">
-    <li>
-      <div class="collapsible-header"><i class="material-icons">timer</i>Stopwatch for timing tasks</div>
-      <div class="collapsible-body">
-         <span>
-            <iframe src="http://ipadstopwatch.com/embed.html" class="col s12" frameborder="0" scrolling="no" height="140"></iframe>
-         </span>
-      </div>
-    </li>
-  </ul>
-</div>
-   <a class="col s4 waves-effect waves-light btn-large add-button-background" href="{{ url_for('add_task', projectno=job.id) }}">
-      <i class="material-icons right">add_circle_outline</i>add task
-   </a>
-
-<div id="tasks" class="row">
-   <div class="col s12">
-
-      <h5>Active Tasks</h5>
-      {% for task in tasks %} 
-      {% if task.completed == False %}
-      <div class="card not_completed_tasks color-panel">
-         <article class="card-content overflow-auto">
-            <p class="col s12 m7">{{ task.title }}</p>
-            <div class="col s12 m5">
-                <form id="task-completed-form" method="POST" action="{{ url_for('complete_task', projectno=job.id, task_id=task.id) }}">
-                    {{ form.hidden_tag() }}
-                        <div class="input-field inline">
-                        <i class="material-icons prefix">access_time</i>
-                        {{ form.duration.label }}
-                        {{ form.duration(class_="task-item", id=task.id, autocomplete="off", onkeyup="minsToHours(noOfForms)", onmouseup="minsToHours(noOfForms)") }}
-                        <span class="min-to-hr"></span>
+        <div id="tasks" class="row">
+            <div class="col s12">
+                <h5>Active Tasks</h5>
+                {% for task in tasks %}{% if task.completed == False %}
+                <div class="card not_completed_tasks color-panel">
+                    <article class="card-content overflow-auto">
+                        <p class="col s12 m7">{{ task.title }}</p>
+                        <div class="col s12 m5">
+                            <form id="task-completed-form" method="POST" action="{{ url_for('complete_task', projectno=job.id, task_id=task.id) }}">
+                                {{ form.hidden_tag() }}
+                                    <div class="input-field inline">
+                                    <i class="material-icons prefix">access_time</i>
+                                    {{ form.duration.label }}
+                                    {{ form.duration(class_="task-item", id=task.id, autocomplete="off", onkeyup="minsToHours(noOfForms)", onmouseup="minsToHours(noOfForms)") }}
+                                    <span class="min-to-hr"></span>
+                                </div>
+                                {% for error in form.duration.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %} 
+                                {{ form.submit(class="add-button-background btn-small") }}
+                            </form>            
                         </div>
-                        {% for error in form.duration.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %} 
-                    {{ form.submit(class="add-button-background btn-small") }}
-                </form>            
+                    </article>
+                    <article class="card-action overflow-auto">
+                        <div class="col s7"><div class="chip">{{ task.genre }}</div></div>
+                        <div class="col s5">
+                            <a class="waves-effect waves-light btn-small red tooltipped" href="{{ url_for('delete_task', projectno=job.id, task_id=task.id) }}" data-position="bottom" data-tooltip="Delete Task">
+                                <i class="material-icons">delete</i>
+                            </a>
+                            <a class="waves-effect waves-light btn-small blue-grey tooltipped" href="{{ url_for('edit_task', projectno=job.id, task_id=task.id) }}" data-position="bottom" data-tooltip="Edit Task">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                {% endif %}{% endfor %}
+                
+                <h5>Completed Tasks</h5>
+                {% for task in tasks %}{% if task.completed == True %}
+                <div class="card completed_tasks color-panel">
+                    <article class="card-content overflow-auto">
+                        <section class="col s9">
+                            <div class="chip">{{ task.genre }}</div>
+                            <div class="task-done grey-text">{{ task.title }} Time:{{task.duration}} mins</div>
+                        </section>
+                            <a class="waves-effect waves-light btn-small blue-grey" href="{{ url_for('task_not_complete', projectno=job.id, task_id=task.id) }}">
+                                <i class="material-icons">not_interested</i>
+                            </a>
+                    </article>
+                </div>
+                {% endif %}{% endfor %}
+                
             </div>
-         </article>
-         <article class="card-action overflow-auto">
-            <div class="col s7"><div class="chip">{{ task.genre }}</div></div>
-            <div class="col s5">
-               <a class="waves-effect waves-light btn-small red tooltipped" href="{{ url_for('delete_task', projectno=job.id, task_id=task.id) }}" data-position="bottom" data-tooltip="Delete Task">
-                  <i class="material-icons">delete</i>
-               </a>
-               <a class="waves-effect waves-light btn-small blue-grey tooltipped" href="{{ url_for('edit_task', projectno=job.id, task_id=task.id) }}" data-position="bottom" data-tooltip="Edit Task">
-                  <i class="material-icons">edit</i>
-               </a>
-            </div>
-         </article>
-      </div>
-      {% endif %} 
-      {% endfor %}
-
-      <h5>Completed Tasks</h5>
-      {% for task in tasks %} {% if task.completed == True %}
-      <div class="card completed_tasks color-panel">
-         <article class="card-content overflow-auto">
-            <section class="col s9">
-               <div class="chip">{{ task.genre }}</div>
-               <div class="task-done grey-text">{{ task.title }} Time:{{task.duration}} mins</div>
-            </section>
-            <a class="waves-effect waves-light btn-small blue-grey" href="{{ url_for('task_not_complete', projectno=job.id, task_id=task.id) }}">
-               <i class="material-icons">not_interested</i>
-            </a>
-         
-         </article>
-      </div>
-      {% endif %} {% endfor %}
-   </div>
-</div>
-{% endif %}
-
+        </div>
+        {% endif %}
 {% endblock %}
 
-{% block basescripts %}
-<script>
-function formInputToNumber() {
-    let tasks = document.getElementsByClassName("task-item");
-    for(var i = 0; i < tasks.length; i++){
-      tasks[i].type= "number";
-    }
-}
-window.onload = formInputToNumber;
-</script>
-
-<script>
-let noOfForms = document.getElementsByTagName("form").length;
-
-function minsToHours(noOfForms) {
-   for(var i = 0; i <= noOfForms; i++){
-      let mins = document.getElementsByClassName("task-item");
-      console.log(mins);
-      console.log(mins[i]);
-      console.log(mins[i].value);
-      console.log(mins[i].valueAsNumber);
-      
-      var hours = Math.floor(mins[i].value/60);
-      let minutes = mins[i].value%60;
-      let durationConverted = hours+"hrs "+minutes+"mins";
-      document.getElementsByClassName("min-to-hr")[i].innerHTML = durationConverted;
-      console.log(hours+"hrs "+minutes+"mins");
-    }
-}
-</script>
-<script>
-  $(document).ready(function(){
-    $('.collapsible').collapsible();
-    $('.tooltipped').tooltip();
-  });
-</script>
-
-{{ super() }} {% endblock %}
+{% block scriptcustom %}
+    <script src="{{ url_for('static', filename='js/tasks.js')}}"></script>
+{{ super() }}{% endblock %}
