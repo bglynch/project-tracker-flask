@@ -1,0 +1,50 @@
+#client-card{
+    overflow: auto;
+}
+
+#project-clients {
+    position: relative;
+    float: left;
+    top: 0;
+    left: 0;
+}
+
+.dc-chart g.row text {
+    fill: #000;
+}
+
+/*mobile phones*/
+@media only screen and (max-width: 600px) {
+    #project-clients svg {
+        position: relative;
+        left: 0;
+        transform-origin: left;
+    }
+}
+
+
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 601px) and (max-width: 750px) {
+    #project-clients {margin-left: -84px;}
+    #project-clients svg {transform: scale(0.8, 1);}
+    #project-clients svg g g text {transform: scale(1.25, 1);}
+}
+
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 425px) and (max-width: 600px) {
+    #project-clients {margin-left: -16px;}
+    #project-clients svg {transform: scale(0.6, 1);}
+    #project-clients svg g g text {transform: scale(1.5, 1);}
+}
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 320px) and (max-width: 424.98px) {
+    #project-clients {margin-left: -16px;}
+    #project-clients svg {transform: scale(0.45, 1);}
+    #project-clients svg g g text {transform: scale(2.1, 1);}
+}
+/* small phones*/
+@media only screen and (max-width: 319.98px) {
+    #project-clients {margin-left: -16px;}
+    #project-clients svg {transform: scale(0.43, 1);}
+    #project-clients svg g g text {transform: scale(2.6, 1);}
+}

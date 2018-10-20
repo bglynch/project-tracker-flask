@@ -37,7 +37,7 @@
     </div>
     <div class="col s12">
       <div class="card color-panel">
-        <div class="card-content">
+        <div id="client-card" class="card-content">
              <span class="card-title">Client Projects</span>
             <span class="card-sub-title">Showing Number of Projects Recieved</span>
           <p id="project-clients"></p>
@@ -55,6 +55,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/charts.css')}}" type="text/css" /> 
 {{ super() }} 
 {% endblock %} 
 
