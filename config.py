@@ -1,4 +1,5 @@
 import os
+import psycopg2
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -13,3 +14,5 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['bglynchtest@gmail.com']
+    
+    conn = psycopg2.connect(SQLALCHEMY_DATABASE_URI, sslmode='require')
