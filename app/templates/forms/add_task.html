@@ -30,27 +30,6 @@
     </form>
 {% endblock %}
 
-{% block basescripts %}
-<script>
-    function formInputToNumber() {
-        let tasks = document.getElementsByClassName("task-item");
-        for(var i = 0; i < tasks.length; i++){
-          tasks[i].type= "number";
-        }
-    }
-    window.onload = formInputToNumber;
-</script>
-
-<script>
-    function addGenre() {
-        let genre = window.event.target.innerText.split(" ")[0];
-        document.getElementById('genre').value = genre;
-    }
-</script>
-<script>
-    $(document).ready(function(){
-        $('.tooltipped').tooltip();
-    });
-</script>
-{{ super() }} 
-{% endblock %}
+{% block scriptcustom %}
+    <script src="{{ url_for('static', filename='js/tasks.js')}}"></script>
+{{ super() }}{% endblock %}

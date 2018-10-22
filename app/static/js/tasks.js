@@ -22,3 +22,10 @@ function minsToHours(noOfForms) {
       console.log(hours+"hrs "+minutes+"mins");
     }
 }
+
+/*---- Add/Edit task form ----*/
+// Function to add genre from genre chips when clicked
+function addGenre() {
+    let genre = window.event.target.innerText.split(" ")[0];
+    document.getElementById('genre').value = genre;
+}

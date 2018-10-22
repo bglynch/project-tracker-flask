@@ -23,6 +23,9 @@
         <div class="row">
             <h5>Add a task ...</h5>
         </div>
+        <a class="col s4 waves-effect waves-light btn-large add-button-background" href="{{ url_for('add_task', projectno=job.id) }}">
+            <i class="material-icons right">add_circle_outline</i>add task
+        </a>
         {% else %}
         <div id="stopwatch" class="row">
             <ul class="collapsible">
