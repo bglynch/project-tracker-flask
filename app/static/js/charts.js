@@ -4,7 +4,7 @@
 /*---- Section 01: Load the Data ----*/
 /*-----------------------------------*/
 queue()
-    .defer(d3.json, "http://project-tracker-flask-bglynch.c9users.io:8080/data")
+    .defer(d3.json, "./data")
     .await(makeGraphs);
 
 /*----------------------------------------------------*/
