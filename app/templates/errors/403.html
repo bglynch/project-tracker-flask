@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div id="403error">
+        <h1>Access Denied(403)</h1>
+        <p><a href="{{ url_for('index') }}">Back to Dashboard</a></p>
+        <div class="row">
+            <img src="https://http.cat/403.jpg" id="error-img" class="col s12">
+        </div>
+    </div>
+{% endblock %}

@@ -282,3 +282,9 @@ textarea.materialize-textarea:focus:not([readonly]) {
         overflow-y: hidden;
     }
 }
+
+
+/*---ERROR PAGES---*/
+#error-img{
+    max-width: 700px;
+}

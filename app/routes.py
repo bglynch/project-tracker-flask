@@ -14,6 +14,16 @@ from .forms import (
 from .models import User, Project, Task
 
 
+# ---------------
+# ------VARIABLES
+# ---------------
+error_msg_403 = 'Access denied: '+ current_user.email + ' does not have access to this project'
+
+
+# ---------------
+# ---------ROUTES
+# ---------------
+
 @app.route('/')
 @app.route('/index')
 @login_required
@@ -105,7 +115,8 @@ def view_project_tasks(projectno):
         return render_template(
             'projects_tasks.html', tasks=tasks, job=job, form=form)
     else:
-        return redirect(url_for('view_projects'))
+        flash(error_msg_403)
+        abort(403)
 
 
 @app.route('/project/<int:projectno>/edit_project', methods=['GET', 'POST'])
@@ -113,6 +124,7 @@ def view_project_tasks(projectno):
 def edit_project(projectno):
     job = Project.query.filter_by(id=projectno).first_or_404()
     if job.user_id != current_user.id:
+        flash(error_msg_403)
         abort(403)
     form = ProjectForm()
     if form.validate_on_submit():
@@ -137,6 +149,7 @@ def edit_project(projectno):
 def delete_project(projectno):
     job = Project.query.filter_by(id=projectno).first_or_404()
     if job.user_id != current_user.id:
+        flash(error_msg_403)
         abort(403)
     db.session.delete(job)
     db.session.commit()
@@ -188,22 +201,23 @@ def add_task(projectno):
                 'forms/add_task.html',
                 title='Create Task', form=form, genres=genres)
         else:
-            flash('Not able to add task to projects that are not yours')
-            return redirect(url_for('view_projects'))
+            flash(error_msg_403)
+            abort(403)
 
 
-@app.route('/project/<projectno>/delete_task/<task_id>')
+
+@app.route('/project/<projectno>/delete_task/<int:task_id>')
 def delete_task(task_id, projectno):
     job = Project.query.filter_by(id=projectno).first_or_404()
 
     if job.user_id == current_user.id:
-        task = Task.query.filter_by(id=int(task_id)).first_or_404()
+        task = Task.query.filter_by(id=task_id).first_or_404()
         db.session.delete(task)
         db.session.commit()
         return redirect(url_for('view_project_tasks', projectno=projectno))
     else:
-        flash('Not able to delete a task that is not yours')
-        return redirect(url_for('view_projects'))
+        flash(error_msg_403)
+        abort(403)
 
 
 @app.route(
@@ -229,6 +243,7 @@ def edit_task(task_id, projectno):
         {item.genre for sublist in list_of_genres for item in sublist})
 
     if job.user_id != current_user.id:
+        flash(error_msg_403)
         abort(403)
     form = TaskForm()
     if form.validate_on_submit():
@@ -273,8 +288,8 @@ def complete_task(task_id, projectno):
         if job.user_id == current_user.id:
             return redirect(url_for('view_project_tasks', projectno=projectno))
         else:
-            flash('Not able to add task to modify tasks that are not yours')
-            return redirect(url_for('view_projects'))
+            flash(error_msg_403)
+            abort(403)
 
 
 @app.route('/<int:projectno>/task_not_complete/<int:task_id>')
@@ -292,8 +307,8 @@ def task_not_complete(task_id, projectno):
         db.session.commit()
         return redirect(url_for('view_project_tasks', projectno=projectno))
     else:
-        flash('Not able to add task to modify tasks that are not yours')
-        return redirect(url_for('view_projects'))
+        flash(error_msg_403)
+        abort(403)
 
 
 @app.route('/data')
