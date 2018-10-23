@@ -40,7 +40,9 @@ class ProjectForm(FlaskForm):
         'Number', validators=[DataRequired(), Length(min=1, max=139)])
     name = StringField(
         'Name', validators=[DataRequired(), Length(min=1, max=139)])
-    value = IntegerField('Value', validators=[DataRequired()])
+    value = IntegerField('Value', validators=[
+        DataRequired(), 
+        NumberRange(min=1, max=1000000, message='Value must be greater than or equal to 1')])
     timestamp = DateField('Date Recieved', format='%d/%m/%y')
     client = StringField(
         'Client', validators=[DataRequired(), Length(min=1, max=139)])

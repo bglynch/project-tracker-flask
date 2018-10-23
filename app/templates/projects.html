@@ -20,7 +20,7 @@
                 <a class="waves-effect waves-light btn-large col color-panel" href="{{ url_for('view_project_tasks', projectno=p.id) }}">
                     <span class="col s2">{{ p.number }}</span>
                     <span class="col s6">{{ p.name }}</span>    
-                    <span class="col s2">£{{ p.value }}</span>  
+                    <span class="col s2">&euro;{{ p.value }}</span>  
                     <span class="col s2"><i class="material-icons">check_box_outline_blank</i></span>   
                 </a>
             </div>
@@ -32,7 +32,7 @@
                 <a class="waves-effect waves-light btn-large col color-panel" href="{{ url_for('view_project_tasks', projectno=p.id) }}">
                     <span class="col s2 grey-text">{{ p.number }}</span>
                     <span class="col s6 grey-text">{{ p.name }}</span>    
-                    <span class="col s2 grey-text">£{{ p.value }}</span>  
+                    <span class="col s2 grey-text">&euro;{{ p.value }}</span>  
                     <span class="col s2"><i class="material-icons">check_box</i></span>   
                 </a>
             </div>
