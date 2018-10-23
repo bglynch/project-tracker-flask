@@ -42,6 +42,10 @@ The key features I developed to fulfil the user stories I created are:
 11. User can capture the time taken to complete tasks
 12. User can view a personal dashboard summarising their projects
 
+## Features for Future Development
+1. Add additional chart to dashboard (e.g Project Profitability)
+2. Ability to assign multiple users to a project
+3. Further improve performance by taking remaining steps recommended by Lighthouse
 
 ## Technologies Used
 The languages, frameworks, libraries and tools that I used to create this portfolio site are:
