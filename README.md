@@ -53,14 +53,16 @@ The languages, frameworks, libraries and tools that I used to create this portfo
 I have detailed below the different approaches and techniques I used to test the functionality of my website's features and to validate the source code for this project. 
 
 ### User scenarios
-User testing was completed with the help of a few friends, who acted as recruiters, hiring managers and clients viewing my portfolio. I asked the testers to first navigate around the site freely (without any instruction) and then to follow sample scenarios I had created based on my user stories. 
+> To do .......... 
 
 A sample scenario I asked friends to test was to contact me using the contact form. This was based on the following user story: 
-> To do............
-
+> To do .......... 
 
 ### Navigation
-To do ................... 
+> To do .......... 
+
+### Defensive Design
+Defensive design was tested manually using URL inputs. A method of how this was done can be found [HERE](docs/testing/url-input.md)
 
 ### Responsiveness
 I tested the responsiveness of my site by viewing the site on different devices and browsers. 
@@ -127,3 +129,4 @@ python run_app.py
 
 ### Acknowledgements
 - [SQL Designer](http://ondras.zarovi.cz/sql/demo/) - for initial database mockup
+- [HTTP Cats](https://http.cat/) - image for custom error message
