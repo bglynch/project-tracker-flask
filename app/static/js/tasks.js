@@ -26,6 +26,6 @@ function minsToHours(noOfForms) {
 /*---- Add/Edit task form ----*/
 // Function to add genre from genre chips when clicked
 function addGenre() {
-    let genre = window.event.target.innerText.split(" ")[0];
+    let genre = window.event.target.innerText;
     document.getElementById('genre').value = genre;
 }
