@@ -47,9 +47,9 @@
             </div>
             <!--navigation on mobile/tablet-->
             <ul class="sidenav" id="mobile-demo">
-                <div class="row" style="height: 57px;">
+                <li class="row sidenav-logo">
                     <a href="/index" class="brand-logo header-txt">PT</a>
-                </div>
+                </li>
                 {% if current_user.is_anonymous %}
                 <li><a href="{{ url_for('login') }}">Login</a></li>
                 {% else %}

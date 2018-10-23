@@ -81,6 +81,16 @@ a.brand-logo {
     color: #003399;
 }
 
+#mobile-demo .sidenav-logo{
+    height: 60px
+}
+
+#mobile-demo .sidenav-logo a{
+    font-size: 5rem;
+    font-weight: 100;
+}
+
+
 /*--------- dashboard -----------------*/
 
 #project_count,
