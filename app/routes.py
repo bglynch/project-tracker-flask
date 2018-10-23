@@ -17,7 +17,7 @@ from .models import User, Project, Task
 # ---------------
 # ------VARIABLES
 # ---------------
-error_msg_403 = 'Access denied: '+ current_user.email + ' does not have access to this project'
+error_msg_403 = 'Access denied: You do not have access to this project'
 
 
 # ---------------
