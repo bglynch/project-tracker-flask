@@ -53,13 +53,24 @@ The languages, frameworks, libraries and tools that I used to create this portfo
 I have detailed below the different approaches and techniques I used to test the functionality of my website's features and to validate the source code for this project. 
 
 ### User scenarios
-> To do .......... 
+
+User testing was completed with the help of a few friends, who acted as testers. I asked the testers to first register and login to the app and then navigate around the site freely (without any instruction) and then to follow sample scenarios I had created based on my user stories.
 
 A sample scenario I asked friends to test was to contact me using the contact form. This was based on the following user story: 
-> To do .......... 
+> 1. Log out of the app  
+Upon trying to log back in, pretend you forget your password and try to reset it.
+
+> 2. Create a project and task with incorrect details.  
+Now try and edit those details to fill in the correct ones
+
+> 3. Create several projects and use the dashboard to find out which client is your most important.
+
 
 ### Navigation
-> To do .......... 
+Acting as a user, I tested the navigation of the site through using the navigation links in the navbar. I also tested all routes shown on the user flow diagram to make sure that navigation was intuitive so the user would not have to use the back button on their browser.
+
+### Code Formatting
+I used [pycodestyle](http://pycodestyle.pycqa.org/en/latest/) to test and improve the formatting of my code in line with PEP8.
 
 ### Defensive Design
 Defensive design was tested manually using URL inputs. A method of how this was done can be found [HERE](docs/testing/url-input.md)
@@ -69,10 +80,11 @@ I tested the responsiveness of my site by viewing the site on different devices 
 I also employed tools such as [Chrome Developer Tools](https://developers.google.com/web/tools/chrome-devtools/) and [Resizer](https://material.io/tools/resizer/#url=https%3A%2F%2Fcodeinstitute.net) to test responsive features. 
 
 ### Performance
-I also employed the [Lighthouse](https://developers.google.com/web/tools/lighthouse/) which is a Chrome Dev Tool that helped me assess the performance and quality of the website.  
+I used [Lighthouse](https://developers.google.com/web/tools/lighthouse/) which is a Chrome Dev Tool that helped me assess the performance and quality of the website.  
+Results for this testing can be found [HERE](docs/testing/lighthouse-reports) 
 
 ### Code validation
-I also used the following validators to validate my code:
+I  used the following validators to validate my code:
 1. [W3C - HTML Validator](https://validator.w3.org/)  
 2. [W3C - CSS Validator](http://jigsaw.w3.org/css-validator/)  
 
