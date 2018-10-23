@@ -33,7 +33,7 @@
                 <div class="collapsible-header"><i class="material-icons">timer</i>Stopwatch for timing tasks</div>
                 <div class="collapsible-body">
                     <span>
-                        <iframe src="http://ipadstopwatch.com/embed.html" class="col s12" frameborder="0" scrolling="no" height="140"></iframe>
+                        <iframe src="http://ipadstopwatch.com/embed.html" class="col s12"></iframe>
                     </span>
                 </div>
                 </li>
@@ -51,7 +51,7 @@
                     <article class="card-content overflow-auto">
                         <p class="col s12 m7">{{ task.title }}</p>
                         <div class="col s12 m5">
-                            <form id="task-completed-form" method="POST" action="{{ url_for('complete_task', projectno=job.id, task_id=task.id) }}">
+                            <form class="task-completed-form" method="POST" action="{{ url_for('complete_task', projectno=job.id, task_id=task.id) }}">
                                 {{ form.hidden_tag() }}
                                     <div class="input-field inline">
                                     <i class="material-icons prefix">access_time</i>

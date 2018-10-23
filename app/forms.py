@@ -67,8 +67,8 @@ class InlineButtonWidget(object):
         kwargs.setdefault('type', self.input_type)
         kwargs.setdefault('value', field.label.text)
         return HTMLString(
-            '<button %s><i class="material-icons">done</i>' % self.html_params(
-                name=field.name, **kwargs))
+            '<button %s><i class="material-icons">done</i></button>' % 
+            self.html_params(name=field.name, **kwargs))
 
 
 class InlineSubmitField(BooleanField):

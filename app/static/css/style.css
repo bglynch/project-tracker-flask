@@ -149,6 +149,12 @@ a.brand-logo {
 #stopwatch {
     margin-bottom: 0;
 }
+#stopwatch iframe{
+    border: 0px;
+    height: 140px
+}
+
+
 .collapsible-body{
     overflow: auto;
 }
@@ -174,7 +180,7 @@ a.brand-logo {
     float: right;
 }
 
-#task-completed-form button {
+#tasks .task-completed-form button {
     position: relative;
     float: right;
 }
@@ -184,24 +190,24 @@ a.brand-logo {
     text-decoration: line-through;
 }
 
-#task-completed-form {
+#tasks .task-completed-form {
     margin-bottom: 0px;
     position: relative;
     float: right;
 }
 
-#task-completed-form .input-field.inline {
+#tasks .task-completed-form .input-field.inline {
     margin-bottom: 0px;
     margin-top: 0px;
 }
 
-#task-completed-form .input-field .prefix {
+#tasks .task-completed-form .input-field .prefix {
     top: 0rem;
     font-size: 1.75rem;
     width: 1.75rem;
 }
 
-#task-completed-form label {
+#tasks .task-completed-form label {
     height: 1px;
     line-height: 20px;
     margin-left: 25px;
@@ -210,11 +216,11 @@ a.brand-logo {
     font-size: 0.9rem;
 }
 
-#task-completed-form .input-field>label:not(.label-icon).active {
+#tasks .task-completed-form .input-field>label:not(.label-icon).active {
     transform: translateY(8px) scale(0.8);
 }
 
-#task-completed-form .task-item {
+#tasks .task-completed-form .task-item {
     margin-bottom: 0px;
     line-height: 20px;
     height: 20px;
@@ -222,7 +228,7 @@ a.brand-logo {
     width: 70px;
 }
 
-#task-completed-form #submit {
+.task-completed-form #submit {
     line-height: 20px;
     height: 20px;
     font-size: 0.8rem;
